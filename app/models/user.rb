@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  ROLES = %w[admin moderator author banned]
+  ROLES = %w[admin scout unverified banned]
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -8,6 +8,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :confirmed_at, :pilot_name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :confirmed_at, :pilot_name, :role
   # attr_accessible :title, :body
 end
