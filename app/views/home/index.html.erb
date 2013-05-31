@@ -1,2 +1,7 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1>Welcome!</h1>
+
+<% if current_user.role == "unverified" %>
+  <p>Thanks for confirming your account!<br />
+  An Admin has been notified and will review wether or not you get any roles.<br />
+  For now, relax and grab a glass of bourbon.</p>
+<% end %>
