@@ -1,7 +1,6 @@
 BravePosTracker::Application.routes.draw do
   get "home/index"
-
-  get "home/waiting"
+  get "home/waiting_room"
 
   devise_for :users
 
@@ -54,7 +53,10 @@ BravePosTracker::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  authenticated :user do
+    root :to => 'home#index'
+  end
+  root :to => "home#waiting_room"
 
   # See how all your routes lay out with "rake routes"
 
