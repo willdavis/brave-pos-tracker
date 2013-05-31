@@ -8,5 +8,6 @@ FactoryGirl.define do
     # required if the Devise Confirmable module is used
     confirmed_at Time.now
     pilot_name 'Test Pilot'
+    role 'admin'
   end
 end

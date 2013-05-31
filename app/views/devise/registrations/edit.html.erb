@@ -4,10 +4,12 @@
   <%= devise_error_messages! %>
 
   <div><%= f.label :pilot_name %><br />
-  <%= f.email_field :pilot_name, :autofocus => true %></div>
+  <%= f.text_field :pilot_name, :autofocus => true %></div>
 
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
+  
+  <div>Role: <%= resource.role %></div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
