@@ -11,7 +11,7 @@ describe HomeController do
 
   describe "GET 'waiting'" do
     it "returns http success" do
-      get 'waiting'
+      get 'waiting_room'
       response.should be_success
     end
   end
