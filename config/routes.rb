@@ -1,4 +1,8 @@
 BravePosTracker::Application.routes.draw do
+  get "home/index"
+
+  get "home/waiting"
+
   devise_for :users
 
   # The priority is based upon order of creation:
