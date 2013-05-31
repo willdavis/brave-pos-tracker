@@ -1,7 +1,13 @@
-<h1>Welcome!</h1>
-
 <% if current_user.role == "unverified" %>
+  <h1>Welcome!</h1>
   <p>Thanks for confirming your account!<br />
   An Admin has been notified and will review if you get any roles.<br />
   For now, relax and grab a glass of bourbon.</p>
+<% end %>
+
+<% if current_user.role == "banned" %>
+  <h1>Congratulations!</h1>
+  <p><b>You have been banned!</b></p>
+  <p>The features of this site are unavailable to you.</p>
+  <p>Have a nice day!</p>
 <% end %>
