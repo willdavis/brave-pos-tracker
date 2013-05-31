@@ -24,6 +24,8 @@ gem 'jquery-rails'
 gem "devise"
 gem "figaro"
 
+gem 'bootstrap-sass', '~> 2.3.1.2'
+
 
 group :development do
   gem "better_errors"
