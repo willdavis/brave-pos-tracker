@@ -14,6 +14,9 @@
 
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
+  
+  <div><%= f.label :role %><br />
+  <%= f.text_field :role, :readonly => true, :value => "unverified" %></div>
 
   <div><%= f.submit "Sign up" %></div>
 <% end %>
