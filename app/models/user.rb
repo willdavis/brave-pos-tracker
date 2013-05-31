@@ -12,4 +12,5 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   
   validates :pilot_name, :presence => true, :uniqueness => true
+  validates :role , :inclusion => { :in => User::ROLES, :message => "%{value} is not valid." }
 end
