@@ -1,0 +1,16 @@
+<h1>Admin::Dashboard#applications</h1>
+<p>Find me in app/views/admin/dashboard/applications.html.erb</p>
+
+<p>Unverified Users</p>
+<ul>
+<% for user in @users %>
+  <li>
+    <%= user.pilot_name %>
+    
+    <%= form_tag("/accept", :method => "put") do %>
+      <%= select(:user, :role, User::ROLES, :selected => user.role) %>
+      <%= submit_tag("Apply", :disabled => true) %>
+    <% end %>
+  </li>
+<% end %>
+</ul>

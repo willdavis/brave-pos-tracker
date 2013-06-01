@@ -1,4 +1,8 @@
 BravePosTracker::Application.routes.draw do
+  namespace :admin do
+    get "dashboard/applications"
+  end
+  
   get "home/index"
   get "home/waiting_room"
 
