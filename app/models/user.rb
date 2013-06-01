@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_and_belongs_to_many :roles
+  has_and_belongs_to_many :roles, :class_name => "Admin::Role"
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
