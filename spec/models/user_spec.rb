@@ -11,13 +11,12 @@ describe User do
     end
   end
   
-  describe "Role" do
-    it "is a string" do
-      @user.role.class.should eq(String)
-    end
-    
-    it "is listed in the User::ROLES list" do
-      User::ROLES.should include(@user.role)
+  describe "Roles" do
+    it "can have many" do
+      role1 = Admin::Role.new(:name => "test1")
+      role2 = Admin::Role.new(:name => "test2")
+      @user.roles << [role1, role2]
+      @user.roles.should include(role1, role2)
     end
   end
 end

@@ -1,5 +1,7 @@
 BravePosTracker::Application.routes.draw do
   namespace :admin do
+    resources :roles
+    
     get "dashboard/applications"
   end
   
