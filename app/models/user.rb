@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   ROLES = %w[admin scout unverified banned]
+  has_and_belongs_to_many :roles
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
