@@ -8,8 +8,6 @@
 
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
-  
-  <div>Role: <%= resource.role %></div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
