@@ -7,10 +7,12 @@
   <li>
     <%= user.pilot_name %>
     
-    <%#= form_tag("/accept", :method => "put") do %>
-      <%#= select(:user, :role, User::ROLES, :selected => user.role) %>
-      <%#= submit_tag("Apply", :disabled => true) %>
-    <%# end %>
+    <%= form_tag({:controller => "dashboard", :action => "accept_application"}, :method => "post") do %>
+      <%= select_tag(:role_id, options_for_select(Admin::Role.all.map { |r| [r.name, r.id] })) %>
+      
+      <%= hidden_field_tag(:user_id, user.id) %>
+      <%= submit_tag("Apply") %>
+    <% end %>
   </li>
 <% end %>
 </ul>
