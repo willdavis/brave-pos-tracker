@@ -3,6 +3,7 @@ BravePosTracker::Application.routes.draw do
     resources :roles
     
     get "dashboard/applications"
+    post "dashboard/accept_application"
   end
   
   get "home/index"
