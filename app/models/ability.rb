@@ -6,8 +6,6 @@ class Ability
  
     if user.role? :super_admin
       can :manage, :all
-    elsif user.role? :unverified
-      cannot :manage, :all
     elsif user.role? :banned
       cannot :manage, :all
     end

@@ -19,7 +19,11 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe Admin::RolesController do
-
+  
+  before(:each) do
+    sign_in FactoryGirl.create(:user)
+  end
+  
   # This should return the minimal set of attributes required to create a valid
   # Admin::Role. As you add validations to Admin::Role, be sure to
   # adjust the attributes here as well.
@@ -28,7 +32,7 @@ describe Admin::RolesController do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # Admin::RolesController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { {"warden.user.user.key" => session["warden.user.user.key"]} }
 
   describe "GET index" do
     it "assigns all admin_roles as @admin_roles" do
