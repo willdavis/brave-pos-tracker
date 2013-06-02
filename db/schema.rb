@@ -25,12 +25,14 @@ ActiveRecord::Schema.define(:version => 20130602074045) do
   end
 
   create_table "stars", :force => true do |t|
-    t.string   "name"
-    t.decimal  "security"
-    t.integer  "gate_count"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name",       :default => "",  :null => false
+    t.decimal  "security",   :default => 1.0, :null => false
+    t.integer  "gate_count", :default => 1,   :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
+
+  add_index "stars", ["name"], :name => "index_stars_on_name", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
