@@ -3,5 +3,6 @@ class Admin::DashboardController < ApplicationController
   
   def applications
     @users = User.where("confirmed_at NOT NULL")
+    authorize! :manage, @users
   end
 end

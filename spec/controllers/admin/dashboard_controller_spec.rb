@@ -4,6 +4,8 @@ describe Admin::DashboardController do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
+    @role = FactoryGirl.create(:admin_role)
+    @user.roles << @role
     sign_in @user
   end
 
