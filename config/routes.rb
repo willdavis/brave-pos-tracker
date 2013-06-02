@@ -1,4 +1,6 @@
 BravePosTracker::Application.routes.draw do
+  resources :stars
+
   namespace :admin do
     resources :roles
     
