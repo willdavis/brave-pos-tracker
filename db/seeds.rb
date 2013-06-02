@@ -10,6 +10,9 @@ puts 'DEFAULT ROLES'
 role = Admin::Role.find_or_create_by_name :name => 'super_admin'
 puts 'role: ' << role.name
 
+role2 = Admin::Role.find_or_create_by_name :name => 'scout'
+puts 'role: ' << role2.name
+
 role3 = Admin::Role.find_or_create_by_name :name => 'banned'
 puts 'role: ' << role3.name
 
