@@ -10,9 +10,6 @@ puts 'DEFAULT ROLES'
 role = Admin::Role.find_or_create_by_name :name => 'super_admin'
 puts 'role: ' << role.name
 
-role2 = Admin::Role.find_or_create_by_name :name => 'unverified'
-puts 'role: ' << role2.name
-
 role3 = Admin::Role.find_or_create_by_name :name => 'banned'
 puts 'role: ' << role3.name
 
@@ -22,7 +19,6 @@ user.roles << role
 puts 'user: ' << user.email
 
 user2 = User.find_or_create_by_email :email => "unverified@test.com", :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup, :confirmed_at => DateTime.now, :pilot_name => "Test_Unverified_Pilot"
-user2.roles << role2
 puts 'user: ' << user2.email
 
 user3 = User.find_or_create_by_email :email => "banned@test.com", :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup, :confirmed_at => DateTime.now, :pilot_name => "Test_Banned_Pilot"
