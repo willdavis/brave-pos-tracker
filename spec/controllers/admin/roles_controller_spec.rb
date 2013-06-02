@@ -21,13 +21,16 @@ require 'spec_helper'
 describe Admin::RolesController do
   
   before(:each) do
-    sign_in FactoryGirl.create(:user)
+    @role = FactoryGirl.create(:admin_role)
+    @user = FactoryGirl.create(:user)
+    @user.roles << @role
+    sign_in @user
   end
   
   # This should return the minimal set of attributes required to create a valid
   # Admin::Role. As you add validations to Admin::Role, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "name" => "MyString" } }
+  let(:valid_attributes) { { "name" => "super_admin" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -36,9 +39,9 @@ describe Admin::RolesController do
 
   describe "GET index" do
     it "assigns all admin_roles as @admin_roles" do
-      role = Admin::Role.create! valid_attributes
+      #role = Admin::Role.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:admin_roles).should eq([role])
+      assigns(:admin_roles).should eq([@role])
     end
   end
 

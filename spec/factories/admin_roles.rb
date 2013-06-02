@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :admin_role, :class => 'Admin::Role' do
-    name "MyString"
+    name "super_admin"
   end
 end
