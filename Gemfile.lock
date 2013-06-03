@@ -93,6 +93,7 @@ GEM
     multi_json (1.7.4)
     nokogiri (1.5.9)
     orm_adapter (0.4.0)
+    pg (0.15.1)
     polyglot (0.3.3)
     rack (1.4.5)
     rack-cache (1.2)
@@ -176,6 +177,7 @@ DEPENDENCIES
   figaro
   jquery-rails
   launchy
+  pg
   rails (= 3.2.13)
   rspec-rails
   sass-rails (~> 3.2.3)
