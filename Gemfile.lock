@@ -54,6 +54,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
+    daemons (1.1.9)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
     devise (2.2.4)
@@ -66,6 +67,7 @@ GEM
       launchy (~> 2.1)
       mail (~> 2.2)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.2.0)
@@ -93,6 +95,7 @@ GEM
     multi_json (1.7.4)
     nokogiri (1.5.9)
     orm_adapter (0.4.0)
+    pg (0.15.1)
     polyglot (0.3.3)
     rack (1.4.5)
     rack-cache (1.2)
@@ -145,6 +148,10 @@ GEM
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
+    thin (1.5.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
     thor (0.18.1)
     tilt (1.4.1)
     treetop (1.4.12)
@@ -176,9 +183,11 @@ DEPENDENCIES
   figaro
   jquery-rails
   launchy
+  pg
   rails (= 3.2.13)
   rspec-rails
   sass-rails (~> 3.2.3)
   sqlite3
   therubyracer
+  thin
   uglifier (>= 1.0.3)
