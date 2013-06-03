@@ -22,22 +22,21 @@ BravePosTracker::Application.configure do
   
   
   # ActionMailer Config
-  # Setup for production - deliveries, no errors raised
-  config.action_mailer.default_url_options = { :host => 'example.com' }
-  config.action_mailer.delivery_method = :smtp
+  # Setup for production - deliveries
+  config.action_mailer.default_url_options = { :host => 'brave-pos-tracker.herokuapp.com' }
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default :charset => "utf-8"
   
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
-    domain: "example.com",
-    authentication: "plain",
-    enable_starttls_auto: true,
-    user_name: ENV["GMAIL_USERNAME"],
-    password: ENV["GMAIL_PASSWORD"]
+    :port =>           '587',
+    :address =>        'smtp.mandrillapp.com',
+    :user_name =>      ENV['MANDRILL_USERNAME'],
+    :password =>       ENV['MANDRILL_APIKEY'],
+    :domain =>         'heroku.com',
+    :authentication => :plain
   }
+  config.action_mailer.raise_delivery_errors = true
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
