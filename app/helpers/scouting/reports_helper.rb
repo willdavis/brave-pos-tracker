@@ -1,0 +1,2 @@
+module Scouting::ReportsHelper
+end
