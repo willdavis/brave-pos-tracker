@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @planet.name %>
+</p>
+
+<p>
+  <b>Asteroid belt count:</b>
+  <%= @planet.asteroid_belt_count %>
+</p>
+
+<p>
+  <b>Poco owner:</b>
+  <%= @planet.poco_owner_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_planet_path(@planet) %> |
+<%= link_to 'Back', planets_path %>
