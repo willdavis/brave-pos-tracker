@@ -4,6 +4,10 @@
     <li><%= link_to('Stars', stars_path) %></li>
   <% end %>
   
+  <% if can? :manage, Scouting::Report %>
+    <li><%= link_to('Scouting', scouting_reports_path) %></li>
+  <% end %>
+  
   <% if can? :manage, User %>
     <li><%= link_to('Pilot Applications', admin_dashboard_applications_path) %></li>
   <% end %>
