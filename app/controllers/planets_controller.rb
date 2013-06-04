@@ -44,9 +44,11 @@ class PlanetsController < ApplicationController
   # POST /planets.json
   def create
     @planet = Planet.new(params[:planet])
+    @star = Star.find(params[:planet][:star_id])
 
     respond_to do |format|
       if @planet.save
+        @star.planets << @planet
         format.html { redirect_to @planet, notice: 'Planet was successfully created.' }
         format.json { render json: @planet, status: :created, location: @planet }
       else

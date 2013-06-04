@@ -10,7 +10,11 @@
       </ul>
     </div>
   <% end %>
-
+  
+  <div class="field">
+    <%= f.label :star %><br />
+    <%= collection_select(:planet, :star_id, Star.all, :id, :name) %>
+  </div>
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
