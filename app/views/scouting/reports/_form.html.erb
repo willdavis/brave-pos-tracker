@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :star_id %><br />
-    <%= f.number_field :star_id %>
+    <%= f.label :star %><br />
+    <%= collection_select(:scouting_report, :star_id, Star.all, :id, :name) %>
   </div>
   <div class="field">
     <%= f.label :planet_ids %><br />

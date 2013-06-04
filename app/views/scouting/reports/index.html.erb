@@ -1,4 +1,4 @@
-<h1>Listing scouting_reports</h1>
+<h1>Listing Scouting Reports</h1>
 
 <table class="table table-condensed table-striped">
   <tr>
@@ -13,7 +13,7 @@
 <% @scouting_reports.each do |scouting_report| %>
   <tr>
     <td><%= scouting_report.user.pilot_name %></td>
-    <td><%= scouting_report.star_id %></td>
+    <td><%= scouting_report.star.name %></td>
     <td><%= scouting_report.planet_ids %></td>
     <td><%= link_to 'Show', scouting_report %></td>
     <td><%= link_to 'Edit', edit_scouting_report_path(scouting_report) %></td>
