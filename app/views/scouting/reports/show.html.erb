@@ -11,8 +11,10 @@
 </p>
 
 <p>
-  <b>Planet ids:</b>
-  <%= @scouting_report.planet_ids %>
+  <b>Planets:</b>
+  <% for planet in @scouting_report.planets %>
+    <%= planet.name %><br />
+  <% end %>
 </p>
 
 
