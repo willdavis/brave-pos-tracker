@@ -1,9 +1,10 @@
 <h1>Listing planets</h1>
 
-<table>
+<table class="table table-condensed table-striped">
   <tr>
     <th>Name</th>
     <th>Asteroid belt count</th>
+    <th>Ice belt count</th>
     <th>Poco owner</th>
     <th></th>
     <th></th>
@@ -14,6 +15,7 @@
   <tr>
     <td><%= planet.name %></td>
     <td><%= planet.asteroid_belt_count %></td>
+    <td><%= planet.ice_belt_count %></td>
     <td><%= planet.poco_owner_id %></td>
     <td><%= link_to 'Show', planet %></td>
     <td><%= link_to 'Edit', edit_planet_path(planet) %></td>
