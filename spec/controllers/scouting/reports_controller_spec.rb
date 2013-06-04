@@ -19,7 +19,14 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe Scouting::ReportsController do
-
+  
+  before(:each) do
+    @role = FactoryGirl.create(:admin_role)
+    @user = FactoryGirl.create(:user)
+    @user.roles << @role
+    sign_in @user
+  end
+  
   # This should return the minimal set of attributes required to create a valid
   # Scouting::Report. As you add validations to Scouting::Report, be sure to
   # adjust the attributes here as well.
@@ -28,7 +35,7 @@ describe Scouting::ReportsController do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # Scouting::ReportsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { {"warden.user.user.key" => session["warden.user.user.key"]} }
 
   describe "GET index" do
     it "assigns all scouting_reports as @scouting_reports" do
