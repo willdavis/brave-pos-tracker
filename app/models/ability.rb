@@ -7,7 +7,7 @@ class Ability
     if user.role? :super_admin
       can :manage, :all
     elsif user.role? :scout
-      can :manage, [ Star ]
+      can :manage, [ Star, Scouting::Report ]
     elsif user.role? :banned
       cannot :manage, :all
     end
