@@ -3,6 +3,7 @@ class Planet < ActiveRecord::Base
   
   validates :name, :presence => true, :uniqueness => true
   validates :asteroid_belt_count, :presence => true
+  validates :ice_belt_count, :presence => true
   
   belongs_to :star
 end
