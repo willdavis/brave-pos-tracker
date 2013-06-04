@@ -47,6 +47,7 @@ class Scouting::ReportsController < ApplicationController
 
     respond_to do |format|
       if @scouting_report.save
+        current_user.scouting_reports << @scouting_report
         format.html { redirect_to @scouting_report, notice: 'Report was successfully created.' }
         format.json { render json: @scouting_report, status: :created, location: @scouting_report }
       else

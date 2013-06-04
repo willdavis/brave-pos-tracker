@@ -2,6 +2,7 @@
 
 <table class="table table-condensed table-striped">
   <tr>
+    <th>Submitter</th>
     <th>Star</th>
     <th>Planet ids</th>
     <th></th>
@@ -11,6 +12,7 @@
 
 <% @scouting_reports.each do |scouting_report| %>
   <tr>
+    <td><%= scouting_report.user.pilot_name %></td>
     <td><%= scouting_report.star_id %></td>
     <td><%= scouting_report.planet_ids %></td>
     <td><%= link_to 'Show', scouting_report %></td>
