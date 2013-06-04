@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130603230752) do
+ActiveRecord::Schema.define(:version => 20130604002232) do
 
   create_table "admin_roles", :force => true do |t|
     t.string   "name"
@@ -25,10 +25,11 @@ ActiveRecord::Schema.define(:version => 20130603230752) do
   end
 
   create_table "scouting_reports", :force => true do |t|
-    t.integer  "star_id",    :default => 0, :null => false
+    t.integer  "star_id"
     t.string   "planet_ids"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
 
   create_table "stars", :force => true do |t|
