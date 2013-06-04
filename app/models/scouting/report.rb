@@ -10,6 +10,6 @@ class Scouting::Report < ActiveRecord::Base
   end
   
   def planets
-    planet_ids.split(',').map { |id| id.to_i }
+    Planet.find(planet_ids.split(','))
   end
 end

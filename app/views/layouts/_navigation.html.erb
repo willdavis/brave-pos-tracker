@@ -4,6 +4,10 @@
     <li><%= link_to('Stars', stars_path) %></li>
   <% end %>
   
+  <% if can? :manage, Planet %>
+    <li><%= link_to('Planets', planets_path) %></li>
+  <% end %>
+  
   <% if can? :manage, Scouting::Report %>
     <li><%= link_to('Scouting', scouting_reports_path) %></li>
   <% end %>
