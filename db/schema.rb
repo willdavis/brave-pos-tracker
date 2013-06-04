@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604033838) do
+ActiveRecord::Schema.define(:version => 20130604052608) do
 
   create_table "admin_roles", :force => true do |t|
     t.string   "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20130604033838) do
     t.integer  "poco_owner_id"
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
+    t.integer  "star_id"
   end
 
   add_index "planets", ["name"], :name => "index_planets_on_name", :unique => true
