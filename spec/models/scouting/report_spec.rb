@@ -24,11 +24,13 @@ describe Scouting::Report do
   end
   
   describe ".planets" do
-    it "returns an Array of Planet IDs" do
-      planet_ids = "1,2,3,4,5"
-      @report.planet_ids = planet_ids
+    it "returns an Array of Planet objects" do
+      planet = FactoryGirl.create(:planet, :name => "Test1")
+      planet2 = FactoryGirl.create(:planet, :name => "Test2")
       
-      @report.planets.should eq([1,2,3,4,5])
+      @report.planet_ids = [planet.id,planet2.id]
+      
+      @report.planets.should include(planet, planet2)
     end
   end
 end
