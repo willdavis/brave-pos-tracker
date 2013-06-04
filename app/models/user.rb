@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   
   validates :pilot_name, :presence => true, :uniqueness => true
   
+  has_many :scouting_reports, :class_name => "Scouting::Report"
+  
   def role?(role)
     return !!self.roles.find_by_name(role.to_s)
   end
