@@ -8,4 +8,8 @@ class Scouting::Report < ActiveRecord::Base
   def star
     Star.find(star_id)
   end
+  
+  def planets
+    planet_ids.split(',').map { |id| id.to_i }
+  end
 end

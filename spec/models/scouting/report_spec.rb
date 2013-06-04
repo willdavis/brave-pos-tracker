@@ -22,4 +22,13 @@ describe Scouting::Report do
       @report.star.should eq(star)
     end
   end
+  
+  describe ".planets" do
+    it "returns an Array of Planet IDs" do
+      planet_ids = "1,2,3,4,5"
+      @report.planet_ids = planet_ids
+      
+      @report.planets.should eq([1,2,3,4,5])
+    end
+  end
 end
