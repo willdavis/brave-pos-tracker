@@ -1,5 +1,9 @@
 BravePosTracker::Application.routes.draw do
   resources :stars
+  
+  namespace :scouting do
+    resources :reports
+  end
 
   namespace :admin do
     resources :roles

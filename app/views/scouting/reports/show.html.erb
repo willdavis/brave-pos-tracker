@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Submitter:</b>
+  <%= @scouting_report.user.pilot_name %>
+</p>
+
+<p>
+  <b>Star:</b>
+  <%= @scouting_report.star.name %>
+</p>
+
+<p>
+  <b>Planet ids:</b>
+  <%= @scouting_report.planet_ids %>
+</p>
+
+
+<%= link_to 'Edit', edit_scouting_report_path(@scouting_report) %> |
+<%= link_to 'Back', scouting_reports_path %>

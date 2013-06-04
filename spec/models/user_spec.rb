@@ -5,6 +5,17 @@ describe User do
     @user = FactoryGirl.create(:user)
   end
   
+  describe ".scouting_reports" do
+    it "returns an Array of Report objects" do
+      report1 = FactoryGirl.create(:scouting_report)
+      report2 = FactoryGirl.create(:scouting_report)
+      
+      @user.scouting_reports << [report1, report2]
+      
+      @user.scouting_reports.should include(report1, report2)
+    end
+  end
+  
   describe ".pilot_name" do
     it "is a string" do
       @user.pilot_name.class.should eq(String)

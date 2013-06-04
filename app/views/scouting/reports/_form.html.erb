@@ -1,0 +1,25 @@
+<%= form_for(@scouting_report) do |f| %>
+  <% if @scouting_report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@scouting_report.errors.count, "error") %> prohibited this scouting_report from being saved:</h2>
+
+      <ul>
+      <% @scouting_report.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :star %><br />
+    <%= collection_select(:scouting_report, :star_id, Star.all, :id, :name) %>
+  </div>
+  <div class="field">
+    <%= f.label :planet_ids %><br />
+    <%= f.text_field :planet_ids %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
