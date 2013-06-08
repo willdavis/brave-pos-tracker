@@ -11,25 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604223153) do
+ActiveRecord::Schema.define(:version => 20130608231950) do
 
   create_table "admin_roles", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "planets", :force => true do |t|
-    t.string   "name",                :default => "", :null => false
-    t.integer  "asteroid_belt_count", :default => 0,  :null => false
-    t.integer  "poco_owner_id"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
-    t.integer  "star_id"
-    t.integer  "ice_belt_count",      :default => 0,  :null => false
-  end
-
-  add_index "planets", ["name"], :name => "index_planets_on_name", :unique => true
 
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer "role_id"
