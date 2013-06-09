@@ -21,6 +21,11 @@ require 'spec_helper'
 describe Scouting::ControlTowersController do
 
   before(:each) do
+    @role = FactoryGirl.create(:admin_role)
+    @user = FactoryGirl.create(:user)
+    @user.roles << @role
+    sign_in @user
+    
     @control_tower = FactoryGirl.create(:scouting_control_tower)
   end
 
@@ -34,7 +39,7 @@ describe Scouting::ControlTowersController do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # Scouting::ControlTowersController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { {"warden.user.user.key" => session["warden.user.user.key"]} }
 
   describe "GET index" do
     it "assigns all scouting_control_towers as @scouting_control_towers" do
