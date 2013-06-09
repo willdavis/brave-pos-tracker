@@ -1,0 +1,2 @@
+module Scouting::ControlTowersHelper
+end

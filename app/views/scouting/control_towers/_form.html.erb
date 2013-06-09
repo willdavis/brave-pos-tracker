@@ -1,0 +1,37 @@
+<%= form_for(@scouting_control_tower) do |f| %>
+  <% if @scouting_control_tower.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@scouting_control_tower.errors.count, "error") %> prohibited this scouting_control_tower from being saved:</h2>
+
+      <ul>
+      <% @scouting_control_tower.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :region_id %><br />
+    <%= f.number_field :region_id %>
+  </div>
+  <div class="field">
+    <%= f.label :constellation_id %><br />
+    <%= f.number_field :constellation_id %>
+  </div>
+  <div class="field">
+    <%= f.label :solar_system_id %><br />
+    <%= f.number_field :solar_system_id %>
+  </div>
+  <div class="field">
+    <%= f.label :moon_id %><br />
+    <%= f.number_field :moon_id %>
+  </div>
+  <div class="field">
+    <%= f.label :control_tower_type_id %><br />
+    <%= f.number_field :control_tower_type_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

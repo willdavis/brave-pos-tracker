@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130609001606) do
+ActiveRecord::Schema.define(:version => 20130609022650) do
 
   create_table "admin_roles", :force => true do |t|
     t.string   "name"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(:version => 20130609001606) do
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer "role_id"
     t.integer "user_id"
+  end
+
+  create_table "scouting_control_towers", :force => true do |t|
+    t.integer  "region_id",             :null => false
+    t.integer  "constellation_id",      :null => false
+    t.integer  "solar_system_id",       :null => false
+    t.integer  "moon_id",               :null => false
+    t.integer  "control_tower_type_id", :null => false
+    t.integer  "scouting_report_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "scouting_reports", :force => true do |t|
