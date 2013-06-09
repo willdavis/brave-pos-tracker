@@ -20,10 +20,16 @@ require 'spec_helper'
 
 describe Scouting::ControlTowersController do
 
+  before(:each) do
+    @control_tower = FactoryGirl.create(:scouting_control_tower)
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Scouting::ControlTower. As you add validations to Scouting::ControlTower, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "region_id" => "1" } }
+  let(:valid_attributes) { 
+    { "region_id" => 1, "constellation_id" => 1, "solar_system_id" => 1, "moon_id" => 1, "control_tower_type_id" => 1 } 
+  }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -32,17 +38,15 @@ describe Scouting::ControlTowersController do
 
   describe "GET index" do
     it "assigns all scouting_control_towers as @scouting_control_towers" do
-      control_tower = Scouting::ControlTower.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:scouting_control_towers).should eq([control_tower])
+      assigns(:scouting_control_towers).should eq([@control_tower])
     end
   end
 
   describe "GET show" do
     it "assigns the requested scouting_control_tower as @scouting_control_tower" do
-      control_tower = Scouting::ControlTower.create! valid_attributes
-      get :show, {:id => control_tower.to_param}, valid_session
-      assigns(:scouting_control_tower).should eq(control_tower)
+      get :show, {:id => @control_tower.to_param}, valid_session
+      assigns(:scouting_control_tower).should eq(@control_tower)
     end
   end
 
@@ -55,9 +59,8 @@ describe Scouting::ControlTowersController do
 
   describe "GET edit" do
     it "assigns the requested scouting_control_tower as @scouting_control_tower" do
-      control_tower = Scouting::ControlTower.create! valid_attributes
-      get :edit, {:id => control_tower.to_param}, valid_session
-      assigns(:scouting_control_tower).should eq(control_tower)
+      get :edit, {:id => @control_tower.to_param}, valid_session
+      assigns(:scouting_control_tower).should eq(@control_tower)
     end
   end
 
