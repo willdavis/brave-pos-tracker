@@ -13,4 +13,13 @@ describe Scouting::Report do
       @report.user.should eq(user)
     end
   end
+  
+  describe ".control_towers" do
+    it "returns an Array of Control Tower objects" do
+      tower = FactoryGirl.create(:scouting_control_tower)
+      @report.control_towers << tower
+      
+      @report.control_towers.should include(tower)
+    end
+  end
 end
