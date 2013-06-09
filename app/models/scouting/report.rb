@@ -1,15 +1,7 @@
 class Scouting::Report < ActiveRecord::Base
-  attr_accessible :planet_ids, :star_id
+  attr_accessible :star_id
   
   belongs_to :user
   
   validates :star_id, :presence => true
-  
-  def star
-    Star.find(star_id)
-  end
-  
-  def planets
-    Planet.find(planet_ids.split(','))
-  end
 end

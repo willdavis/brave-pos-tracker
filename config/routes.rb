@@ -1,7 +1,4 @@
 BravePosTracker::Application.routes.draw do
-  resources :planets
-  resources :stars
-  
   namespace :scouting do
     resources :reports
   end

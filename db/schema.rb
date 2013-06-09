@@ -11,25 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604223153) do
+ActiveRecord::Schema.define(:version => 20130609001606) do
 
   create_table "admin_roles", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "planets", :force => true do |t|
-    t.string   "name",                :default => "", :null => false
-    t.integer  "asteroid_belt_count", :default => 0,  :null => false
-    t.integer  "poco_owner_id"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
-    t.integer  "star_id"
-    t.integer  "ice_belt_count",      :default => 0,  :null => false
-  end
-
-  add_index "planets", ["name"], :name => "index_planets_on_name", :unique => true
 
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer "role_id"
@@ -38,21 +26,10 @@ ActiveRecord::Schema.define(:version => 20130604223153) do
 
   create_table "scouting_reports", :force => true do |t|
     t.integer  "star_id"
-    t.string   "planet_ids"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
   end
-
-  create_table "stars", :force => true do |t|
-    t.string   "name",       :default => "",  :null => false
-    t.decimal  "security",   :default => 1.0, :null => false
-    t.integer  "gate_count", :default => 1,   :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
-  end
-
-  add_index "stars", ["name"], :name => "index_stars_on_name", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
