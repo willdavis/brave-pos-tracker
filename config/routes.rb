@@ -1,6 +1,7 @@
 BravePosTracker::Application.routes.draw do
   namespace :scouting do
     resources :reports
+    resources :control_towers
   end
 
   namespace :admin do
