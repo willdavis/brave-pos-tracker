@@ -3,6 +3,5 @@
 FactoryGirl.define do
   factory :scouting_report, :class => 'Scouting::Report' do
     star_id 1
-    planet_ids "MyString"
   end
 end

@@ -4,7 +4,6 @@
   <tr>
     <th>Submitter</th>
     <th>Star</th>
-    <th>Planets</th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,12 +12,7 @@
 <% @scouting_reports.each do |scouting_report| %>
   <tr>
     <td><%= scouting_report.user.pilot_name %></td>
-    <td><%= scouting_report.star.name %></td>
-    <td>
-      <% for planet in scouting_report.planets %>
-        <%= planet.name %><br />
-      <% end %>
-    </td>
+    <td><%= scouting_report.star_id %></td>
     <td><%= link_to 'Show', scouting_report %></td>
     <td><%= link_to 'Edit', edit_scouting_report_path(scouting_report) %></td>
     <td><%= link_to 'Destroy', scouting_report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
