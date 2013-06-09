@@ -1,4 +1,7 @@
 class Scouting::ControlTowersController < ApplicationController
+  before_filter :authenticate_user!
+  load_and_authorize_resource
+  
   # GET /scouting/control_towers
   # GET /scouting/control_towers.json
   def index
