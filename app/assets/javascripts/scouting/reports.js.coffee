@@ -5,7 +5,7 @@
 $ ->
   window.star_ids = {}
   
-  $('#scouting_report_star_name').typeahead(
+  $('#scouting_report_solar_system_name').typeahead(
     source: (query, process) ->
       $.get(
         'http://evedata.herokuapp.com/solar_systems'
@@ -21,7 +21,7 @@ $ ->
           process(names)
       )
     updater: (item) ->
-      $('#scouting_report_star_id').val(star_ids[item])
+      $('#scouting_report_solar_system_id').val(star_ids[item])
       console.log("'" + item + "' selected.")
       console.log("star_id set to: "+star_ids[item])
       return item
