@@ -12,8 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :star %><br />
-    <%#= collection_select(:scouting_report, :star_id, ["testStar1","testStar2"]) %>
+    <%= f.text_field :star_id, :autocomplete => :off, :placeholder => "solar system name", :data => { :provide =>"typeahead" } %>
   </div>
   <div class="actions">
     <%= f.submit %>
