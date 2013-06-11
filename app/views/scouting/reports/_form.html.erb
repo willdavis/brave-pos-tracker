@@ -12,8 +12,10 @@
   <% end %>
 
   <div class="field">
-    <%= f.text_field :star_id, :autocomplete => :off, :placeholder => "solar system name", :data => { :provide =>"typeahead" } %>
+    <%= f.text_field :star_name, :autocomplete => :off, :placeholder => "solar system name", :data => { :provide =>"typeahead" } %>
   </div>
+  
+  <%= f.hidden_field :star_id %>
   <div class="actions">
     <%= f.submit %>
   </div>
