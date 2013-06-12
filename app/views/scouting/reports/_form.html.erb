@@ -15,6 +15,11 @@
     <%= f.text_field :solar_system_name, :autocomplete => :off, :placeholder => "solar system name", :data => { :provide =>"typeahead" } %>
   </div>
   
+  <%= f.label :raw_dscan_data, "Directional Scan Results" %>
+  <%= f.text_area :raw_dscan_data, :placeholder => "direction scan results", :size => "5x10" %>
+  <%= f.label :raw_probe_data, "Probe Scan Results" %>
+  <%= f.text_area :raw_probe_data, :placeholder => "probe scan results", :size => "5x10" %>
+  
   <%= f.hidden_field :solar_system_id %>
   <div class="actions">
     <%= f.submit %>
