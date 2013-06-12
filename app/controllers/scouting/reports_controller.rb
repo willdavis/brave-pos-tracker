@@ -39,6 +39,11 @@ class Scouting::ReportsController < ApplicationController
   def edit
     @scouting_report = Scouting::Report.find(params[:id])
   end
+  
+  # GET /scouting/reports/1/draft
+  def draft
+    
+  end
 
   # POST /scouting/reports
   # POST /scouting/reports.json
