@@ -12,7 +12,7 @@
 <% @scouting_reports.each do |scouting_report| %>
   <tr>
     <td><%= scouting_report.user.pilot_name %></td>
-    <td><%= scouting_report.solar_system_id %></td>
+    <td><b><%= scouting_report.solar_system_name %></b> (ID:<%= scouting_report.solar_system_id %>)</td>
     <td><%= link_to 'Show', scouting_report %></td>
     <td><%= link_to 'Edit', edit_scouting_report_path(scouting_report) %></td>
     <td><%= link_to 'Destroy', scouting_report, method: :delete, data: { confirm: 'Are you sure?' } %></td>

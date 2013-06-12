@@ -41,9 +41,10 @@ ActiveRecord::Schema.define(:version => 20130611203030) do
 
   create_table "scouting_reports", :force => true do |t|
     t.integer  "solar_system_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "user_id"
+    t.string   "solar_system_name"
   end
 
   create_table "users", :force => true do |t|
