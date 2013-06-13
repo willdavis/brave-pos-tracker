@@ -1,3 +1,7 @@
+require 'open-uri'
+require 'json'
+require 'csv'
+
 class Forms::ReportAnalysis
   # ActiveModel plumbing to make `form_for` work
   extend ActiveModel::Naming
@@ -39,7 +43,21 @@ class Forms::ReportAnalysis
   end
   
   def save
+    #analyze probe and dscan data for control towers
+    results = JSON.parse(open("http://evedata.herokuapp.com/control_towers").read)
+    puts results
+    
+    probe_results = []
+    CSV.parse(raw_probe_data, options = { :col_sep => "\t" }) do |row|
+      probe_results.push(row) if row[2].match(/Control Tower/)
+    end
+    
+    puts probe_results
+    
+    #check the validity of the Forms::ReportAnalysis object
     return false unless valid?
+    
+    #Save the analyzed objects
     if create_objects
       user.scouting_reports << report
     else
