@@ -1,1 +1,14 @@
-Draft
+<h1>Scouting Report Draft</h1>
+
+<p>
+  <b>Submitter:</b>
+  <%= @scouting_report.user.pilot_name %>
+</p>
+
+<p>
+  <b>Solar System:</b>
+  <%= @scouting_report.solar_system_name %> (ID:<%= @scouting_report.solar_system_id %>)
+</p>
+
+<%= link_to 'Show', @scouting_report %> |
+<%= link_to 'Back', scouting_reports_path %>

@@ -42,7 +42,7 @@ class Scouting::ReportsController < ApplicationController
   
   # GET /scouting/reports/1/draft
   def draft
-    
+    @scouting_report = Scouting::Report.find(params[:id])
   end
 
   # POST /scouting/reports
@@ -52,7 +52,7 @@ class Scouting::ReportsController < ApplicationController
 
     respond_to do |format|
       if @scouting_report.save
-        format.html { redirect_to scouting_reports_path, notice: 'Report was successfully created.' }
+        format.html { redirect_to draft_scouting_report_path(@scouting_report.report), notice: 'Report was successfully created.' }
         format.json { render json: @scouting_report, status: :created, location: @scouting_report }
       else
         format.html { render action: "new" }
