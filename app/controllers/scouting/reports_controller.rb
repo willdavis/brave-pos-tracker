@@ -5,7 +5,8 @@ class Scouting::ReportsController < ApplicationController
   # GET /scouting/reports
   # GET /scouting/reports.json
   def index
-    @scouting_reports = Scouting::Report.all
+    @published_reports = Scouting::Report.where(:published => true)
+    @draft_reports = Scouting::Report.where(:published => false, :user_id => current_user.id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -27,7 +28,7 @@ class Scouting::ReportsController < ApplicationController
   # GET /scouting/reports/new
   # GET /scouting/reports/new.json
   def new
-    @scouting_report = Scouting::Report.new
+    @scouting_report = Forms::ReportAnalysis.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -39,20 +40,38 @@ class Scouting::ReportsController < ApplicationController
   def edit
     @scouting_report = Scouting::Report.find(params[:id])
   end
+  
+  # GET /scouting/reports/1/draft
+  def draft
+    @scouting_report = Scouting::Report.find(params[:id])
+  end
+  
+  # PUT /scouting/reports/1/publish
+  def publish
+    @scouting_report = Scouting::Report.find(params[:id])
+    @scouting_report.published = true
+    
+    respond_to do |format|
+      if @scouting_report.save
+        format.html { redirect_to @scouting_report, notice: 'Report was successfully published.' }
+      else
+        format.html { render action: "draft" }
+      end
+    end
+  end
 
   # POST /scouting/reports
   # POST /scouting/reports.json
   def create
-    @scouting_report = Scouting::Report.new(params[:scouting_report])
+    @analyzed = Forms::ReportAnalysis.new(params[:scouting_report])
 
     respond_to do |format|
-      if @scouting_report.save
-        current_user.scouting_reports << @scouting_report
-        format.html { redirect_to @scouting_report, notice: 'Report was successfully created.' }
-        format.json { render json: @scouting_report, status: :created, location: @scouting_report }
+      if @analyzed.save
+        format.html { redirect_to draft_scouting_report_path(@analyzed.report), notice: 'Report has been analyzed.' }
+        format.json { render json: @analyzed, status: :created, location: @analyzed }
       else
         format.html { render action: "new" }
-        format.json { render json: @scouting_report.errors, status: :unprocessable_entity }
+        format.json { render json: @analyzed.errors, status: :unprocessable_entity }
       end
     end
   end

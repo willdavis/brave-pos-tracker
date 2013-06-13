@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<h1>Scouting Report Draft</h1>
 
 <p>
   <b>Submitter:</b>
@@ -10,6 +10,6 @@
   <%= @scouting_report.solar_system_name %> (ID:<%= @scouting_report.solar_system_id %>)
 </p>
 
-
-<%= link_to 'Edit', edit_scouting_report_path(@scouting_report) %> |
+<%= link_to 'Publish', publish_scouting_report_path(@scouting_report) %> |
+<%= link_to 'Destroy', @scouting_report, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', scouting_reports_path %>

@@ -1,6 +1,9 @@
 BravePosTracker::Application.routes.draw do
   namespace :scouting do
-    resources :reports
+    resources :reports do
+      get 'draft', :on => :member
+      get 'publish', :on => :member
+    end
     resources :control_towers
   end
 
