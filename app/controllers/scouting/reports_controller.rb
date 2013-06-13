@@ -5,7 +5,8 @@ class Scouting::ReportsController < ApplicationController
   # GET /scouting/reports
   # GET /scouting/reports.json
   def index
-    @scouting_reports = Scouting::Report.all
+    @published_reports = Scouting::Report.where(:published => true)
+    @draft_reports = Scouting::Report.where(:published => false, :user_id => current_user.id)
 
     respond_to do |format|
       format.html # index.html.erb
