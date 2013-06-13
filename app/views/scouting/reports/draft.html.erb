@@ -10,5 +10,6 @@
   <%= @scouting_report.solar_system_name %> (ID:<%= @scouting_report.solar_system_id %>)
 </p>
 
-<%= link_to 'Show', @scouting_report %> |
+Publish |
+<%= link_to 'Destroy', @scouting_report, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', scouting_reports_path %>

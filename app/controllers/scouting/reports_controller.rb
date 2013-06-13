@@ -48,15 +48,15 @@ class Scouting::ReportsController < ApplicationController
   # POST /scouting/reports
   # POST /scouting/reports.json
   def create
-    @scouting_report = Forms::ReportAnalysis.new(params[:scouting_report])
+    @analyzed = Forms::ReportAnalysis.new(params[:scouting_report])
 
     respond_to do |format|
-      if @scouting_report.save
-        format.html { redirect_to draft_scouting_report_path(@scouting_report.report), notice: 'Report was successfully created.' }
-        format.json { render json: @scouting_report, status: :created, location: @scouting_report }
+      if @analyzed.save
+        format.html { redirect_to draft_scouting_report_path(@analyzed.report), notice: 'Report has been analyzed.' }
+        format.json { render json: @analyzed, status: :created, location: @analyzed }
       else
         format.html { render action: "new" }
-        format.json { render json: @scouting_report.errors, status: :unprocessable_entity }
+        format.json { render json: @analyzed.errors, status: :unprocessable_entity }
       end
     end
   end
