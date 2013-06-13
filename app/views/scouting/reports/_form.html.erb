@@ -1,4 +1,4 @@
-<%= form_for(@scouting_report) do |f| %>
+<%= form_for @scouting_report, :url => scouting_reports_path, :as => :scouting_report do |f| %>
   <% if @scouting_report.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@scouting_report.errors.count, "error") %> prohibited this scouting_report from being saved:</h2>
@@ -21,6 +21,7 @@
   <%= f.text_area :raw_probe_data, :placeholder => "probe scan results", :size => "5x10" %>
   
   <%= f.hidden_field :solar_system_id %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
   <div class="actions">
     <%= f.submit %>
   </div>

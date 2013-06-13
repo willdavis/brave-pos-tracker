@@ -27,7 +27,7 @@ class Scouting::ReportsController < ApplicationController
   # GET /scouting/reports/new
   # GET /scouting/reports/new.json
   def new
-    @scouting_report = Scouting::Report.new
+    @scouting_report = Forms::ReportAnalysis.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -48,12 +48,11 @@ class Scouting::ReportsController < ApplicationController
   # POST /scouting/reports
   # POST /scouting/reports.json
   def create
-    @scouting_report = Scouting::Report.new(params[:scouting_report])
+    @scouting_report = Forms::ReportAnalysis.new(params[:scouting_report])
 
     respond_to do |format|
       if @scouting_report.save
-        current_user.scouting_reports << @scouting_report
-        format.html { redirect_to @scouting_report, notice: 'Report was successfully created.' }
+        format.html { redirect_to scouting_reports_path, notice: 'Report was successfully created.' }
         format.json { render json: @scouting_report, status: :created, location: @scouting_report }
       else
         format.html { render action: "new" }
