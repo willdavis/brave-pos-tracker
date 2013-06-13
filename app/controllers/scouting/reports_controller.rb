@@ -45,6 +45,20 @@ class Scouting::ReportsController < ApplicationController
   def draft
     @scouting_report = Scouting::Report.find(params[:id])
   end
+  
+  # PUT /scouting/reports/1/publish
+  def publish
+    @scouting_report = Scouting::Report.find(params[:id])
+    @scouting_report.published = true
+    
+    respond_to do |format|
+      if @scouting_report.save
+        format.html { redirect_to @scouting_report, notice: 'Report was successfully published.' }
+      else
+        format.html { render action: "draft" }
+      end
+    end
+  end
 
   # POST /scouting/reports
   # POST /scouting/reports.json
