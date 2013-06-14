@@ -1,6 +1,6 @@
-<h1>Listing scouting_control_towers</h1>
+<h1>Listing Control Towers</h1>
 
-<table>
+<table class="table">
   <tr>
     <th>Region</th>
     <th>Constellation</th>
@@ -17,8 +17,8 @@
     <td><%= scouting_control_tower.region_id %></td>
     <td><%= scouting_control_tower.constellation_id %></td>
     <td><%= scouting_control_tower.solar_system_id %></td>
-    <td><%= scouting_control_tower.moon_name %> (ID: <%= scouting_control_tower.moon_id %>)</td>
-    <td><%= scouting_control_tower.control_tower_type_name %> (ID: <%= scouting_control_tower.control_tower_type_id %>)</td>
+    <td><%= scouting_control_tower.moon_name %></td>
+    <td><%= scouting_control_tower.control_tower_type_name %></td>
     <td><%= link_to 'Show', scouting_control_tower %></td>
     <td><%= link_to 'Edit', edit_scouting_control_tower_path(scouting_control_tower) %></td>
     <td><%= link_to 'Destroy', scouting_control_tower, method: :delete, data: { confirm: 'Are you sure?' } %></td>

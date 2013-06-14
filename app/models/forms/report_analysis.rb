@@ -55,12 +55,56 @@ class Forms::ReportAnalysis
   end
   
   def save
-    #analyze probe and dscan data for control towers
-    results = JSON.parse(open("http://evedata.herokuapp.com/control_towers").read)
-    puts results
+    #Parse directional scan results
+    moons = []
+    CSV.parse(raw_dscan_data, options = { :col_sep => "\t" }) do |row|
+      if row[1].match(/Moon/) and row[2].match(/AU/).nil?
+        name = row[0]
+        
+        #convert from "X,YYY,ZZZ km" to XYYYZZZ
+        distance = row[2].gsub(/[^0-9]/,'').to_i
+        
+        moons.push([name,distance])
+      end
+    end
     
+    #Parse probe results
     CSV.parse(raw_probe_data, options = { :col_sep => "\t" }) do |row|
-      control_towers.push(new_control_tower(row[3])) if row[2].match(/Control Tower/)
+      group = row[2]
+      distance = row[5]
+      
+      if group.match(/Control Tower/) and distance.match(/AU/).nil?
+        control_tower_name = row[3]
+        
+        #convert from "X,YYY,ZZZ km" to XYYYZZZ
+        distance = distance.gsub(/[^0-9]/,'').to_i
+        
+        #find the closest moon
+        for moon in moons
+          moon_name = moon[0]
+          moon_distance = moon[1]
+          
+          if distance.between?(moon_distance-10000,moon_distance+10000)
+            
+            url_safe_moon_name = moon_name.gsub(/ /,'%20')
+            url_safe_tower_name = control_tower_name.gsub(/ /,'%20')
+            moon_result = JSON.parse(open("http://evedata.herokuapp.com/celestials?name=#{url_safe_moon_name}").read).first
+            tower_result = JSON.parse(open("http://evedata.herokuapp.com/control_towers?name=#{url_safe_tower_name}").read).first
+            
+            control_tower_params = {}
+            control_tower_params["moon_id"] = moon_result["id"]
+            control_tower_params["moon_name"] = moon_result["name"]
+            control_tower_params["solar_system_id"] = moon_result["solar_system_id"]
+            control_tower_params["constellation_id"] = moon_result["constellation_id"]
+            control_tower_params["region_id"] = moon_result["region_id"]
+            
+            control_tower_params["control_tower_type_id"] = tower_result["id"]
+            control_tower_params["control_tower_type_name"] = tower_result["name"]
+            
+            control_towers.push(new_control_tower(control_tower_params))
+          end
+        end
+      end
     end
     
     #check the validity of the Forms::ReportAnalysis object
@@ -90,7 +134,15 @@ class Forms::ReportAnalysis
     false
   end
   
-  def new_control_tower(name)
-    Scouting::ControlTower.new(:control_tower_type_name => name)
+  def new_control_tower(params)
+    Scouting::ControlTower.new(
+      :control_tower_type_name => params["control_tower_type_name"],
+      :control_tower_type_id => params["control_tower_type_id"],
+      :moon_name => params["moon_name"],
+      :moon_id => params["moon_id"],
+      :region_id => params["region_id"],
+      :constellation_id => params["constellation_id"],
+      :solar_system_id => params["solar_system_id"],
+      )
   end
 end
