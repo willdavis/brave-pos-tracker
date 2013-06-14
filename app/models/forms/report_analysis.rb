@@ -26,6 +26,14 @@ class Forms::ReportAnalysis
         end
       end
     end
+    
+    control_towers.each do |object|
+      unless object.valid?
+        object.errors.each do |key, values|
+          errors[key] = values
+        end
+      end
+    end
   end
   
   def user
@@ -34,6 +42,10 @@ class Forms::ReportAnalysis
   
   def report
     @report ||= Scouting::Report.new(:solar_system_id => solar_system_id, :solar_system_name => solar_system_name)
+  end
+  
+  def control_towers
+    @control_towers ||= []
   end
   
   def initialize(attributes = {})
@@ -47,12 +59,9 @@ class Forms::ReportAnalysis
     results = JSON.parse(open("http://evedata.herokuapp.com/control_towers").read)
     puts results
     
-    probe_results = []
     CSV.parse(raw_probe_data, options = { :col_sep => "\t" }) do |row|
-      probe_results.push(row) if row[2].match(/Control Tower/)
+      control_towers.push(new_control_tower(row[3])) if row[2].match(/Control Tower/)
     end
-    
-    puts probe_results
     
     #check the validity of the Forms::ReportAnalysis object
     return false unless valid?
@@ -60,6 +69,9 @@ class Forms::ReportAnalysis
     #Save the analyzed objects
     if create_objects
       user.scouting_reports << report
+      control_towers.each do |tower|
+        report.control_towers << tower
+      end
     else
       false
     end
@@ -70,8 +82,15 @@ class Forms::ReportAnalysis
   def create_objects
     ActiveRecord::Base.transaction do
       report.save!
+      control_towers.each do |tower|
+        tower.save!        
+      end
     end
   rescue
     false
+  end
+  
+  def new_control_tower(name)
+    Scouting::ControlTower.new(:control_tower_type_name => name)
   end
 end

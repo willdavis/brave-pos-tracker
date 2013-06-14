@@ -10,6 +10,12 @@
   <%= @scouting_report.solar_system_name %> (ID:<%= @scouting_report.solar_system_id %>)
 </p>
 
+<ul>
+  <% for tower in @scouting_report.control_towers %>
+    <li><%= tower.control_tower_type_name %></li>
+  <% end %>
+</ul>
+
 <%= link_to 'Publish', publish_scouting_report_path(@scouting_report) %> |
 <%= link_to 'Destroy', @scouting_report, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', scouting_reports_path %>
