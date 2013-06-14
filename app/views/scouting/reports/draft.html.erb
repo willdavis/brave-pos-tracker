@@ -11,11 +11,24 @@
 </p>
 
 <h3>Control Towers</h3>
-<ul>
-  <% for tower in @scouting_report.control_towers %>
-    <li>Type: <%= tower.control_tower_type_name %><br />Moon: <%= tower.moon_name %></li>
+<table class="table">
+  <tr>
+    <th>Moon</th>
+    <th>Tower Type</th>
+    <th>Owner ID</th>
+    <th></th>
+  </tr>
+<% for tower in @scouting_report.control_towers %>
+  <%= form_for(tower) do |f| %>
+  <tr>
+    <td><%= tower.moon_name %></td>
+    <td><%= tower.control_tower_type_name %></td>
+    <td><%= f.number_field :corporation_id %></td>
+    <td><%= f.submit %></td>
+  </tr>
   <% end %>
-</ul>
+<% end %>
+</table>
 
 <%= link_to 'Publish', publish_scouting_report_path(@scouting_report) %> |
 <%= link_to 'Destroy', @scouting_report, method: :delete, data: { confirm: 'Are you sure?' } %> |

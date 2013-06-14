@@ -25,6 +25,10 @@
   <%= @scouting_control_tower.control_tower_type_name %>
 </p>
 
+<p>
+  <b>Owner:</b>
+  <%= @scouting_control_tower.corporation_id %>
+</p>
 
 <%= link_to 'Edit', edit_scouting_control_tower_path(@scouting_control_tower) %> |
 <%= link_to 'Back', scouting_control_towers_path %>

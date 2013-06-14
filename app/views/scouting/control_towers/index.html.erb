@@ -2,6 +2,7 @@
 
 <table class="table">
   <tr>
+    <th>Owner ID</th>
     <th>Region</th>
     <th>Constellation</th>
     <th>Solar system</th>
@@ -14,6 +15,7 @@
 
 <% @scouting_control_towers.each do |scouting_control_tower| %>
   <tr>
+    <td><%= scouting_control_tower.corporation_id %></td>
     <td><%= scouting_control_tower.region_id %></td>
     <td><%= scouting_control_tower.constellation_id %></td>
     <td><%= scouting_control_tower.solar_system_id %></td>
