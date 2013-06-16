@@ -56,7 +56,32 @@ class Forms::ReportAnalysis
   
   def save
     #Parse directional scan results
-    moons = []
+    parse_moons unless raw_dscan_data.nil?
+    
+    #Parse probe results
+    parse_control_towers unless raw_dscan_data.nil? or raw_probe_data.nil?
+    
+    #check the validity of the Forms::ReportAnalysis object
+    return false unless valid?
+    
+    #Save the analyzed objects
+    if create_objects
+      user.scouting_reports << report
+      control_towers.each do |tower|
+        report.control_towers << tower
+      end
+    else
+      false
+    end
+  end
+  
+  private
+  
+  def moons
+    @moons ||= []
+  end
+  
+  def parse_moons
     CSV.parse(raw_dscan_data, options = { :col_sep => "\t" }) do |row|
       if row[1].match(/Moon/) and row[2].match(/AU/).nil?
         name = row[0]
@@ -67,8 +92,9 @@ class Forms::ReportAnalysis
         moons.push([name,distance])
       end
     end
-    
-    #Parse probe results
+  end
+  
+  def parse_control_towers
     CSV.parse(raw_probe_data, options = { :col_sep => "\t" }) do |row|
       group = row[2]    #groupName of the object
       distance = row[5] #distance to the object (relative to the ship in space)
@@ -110,22 +136,7 @@ class Forms::ReportAnalysis
         end
       end
     end
-    
-    #check the validity of the Forms::ReportAnalysis object
-    return false unless valid?
-    
-    #Save the analyzed objects
-    if create_objects
-      user.scouting_reports << report
-      control_towers.each do |tower|
-        report.control_towers << tower
-      end
-    else
-      false
-    end
   end
-  
-  private
 
   def create_objects
     ActiveRecord::Base.transaction do
