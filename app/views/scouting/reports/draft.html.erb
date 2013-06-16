@@ -19,7 +19,7 @@
     <th></th>
   </tr>
 <% for tower in @scouting_report.control_towers %>
-  <%= form_for(tower) do |f| %>
+  <%= form_for(tower, remote: true) do |f| %>
   <tr>
     <td><%= tower.moon_name %></td>
     <td><%= tower.control_tower_type_name %></td>
