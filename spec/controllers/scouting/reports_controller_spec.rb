@@ -30,7 +30,7 @@ describe Scouting::ReportsController do
   # This should return the minimal set of attributes required to create a valid
   # Scouting::Report. As you add validations to Scouting::Report, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "star_id" => "1" } }
+  let(:valid_attributes) { { "user_id" => "1", "solar_system_id" => "1", "solar_system_name" => "test" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -39,9 +39,12 @@ describe Scouting::ReportsController do
 
   describe "GET index" do
     it "assigns all scouting_reports as @scouting_reports" do
-      report = Scouting::Report.create! valid_attributes
+      published_report = Scouting::Report.create! valid_attributes
+      published_report.published = true
+      published_report.save
+      
       get :index, {}, valid_session
-      assigns(:scouting_reports).should eq([report])
+      assigns(:published_reports).should eq([published_report])
     end
   end
 
@@ -56,7 +59,7 @@ describe Scouting::ReportsController do
   describe "GET new" do
     it "assigns a new scouting_report as @scouting_report" do
       get :new, {}, valid_session
-      assigns(:scouting_report).should be_a_new(Scouting::Report)
+      assigns(:scouting_report).should be_a(Forms::ReportAnalysis)
     end
   end
 
@@ -84,7 +87,7 @@ describe Scouting::ReportsController do
 
       it "redirects to the created scouting_report" do
         post :create, {:scouting_report => valid_attributes}, valid_session
-        response.should redirect_to(Scouting::Report.last)
+        response.should redirect_to(draft_scouting_report_path(Scouting::Report.last))
       end
     end
 
@@ -92,14 +95,14 @@ describe Scouting::ReportsController do
       it "assigns a newly created but unsaved scouting_report as @scouting_report" do
         # Trigger the behavior that occurs when invalid params are submitted
         Scouting::Report.any_instance.stub(:save).and_return(false)
-        post :create, {:scouting_report => { "star_id" => "invalid value" }}, valid_session
-        assigns(:scouting_report).should be_a_new(Scouting::Report)
+        post :create, {:scouting_report => { "user_id" => "1", "solar_system_id" => "invalid value" }}, valid_session
+        assigns(:scouting_report).should be_a(Forms::ReportAnalysis)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Scouting::Report.any_instance.stub(:save).and_return(false)
-        post :create, {:scouting_report => { "star_id" => "invalid value" }}, valid_session
+        post :create, {:scouting_report => { "user_id" => "1", "solar_system_id" => "invalid value" }}, valid_session
         response.should render_template("new")
       end
     end
@@ -113,8 +116,8 @@ describe Scouting::ReportsController do
         # specifies that the Scouting::Report created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Scouting::Report.any_instance.should_receive(:update_attributes).with({ "star_id" => "1" })
-        put :update, {:id => report.to_param, :scouting_report => { "star_id" => "1" }}, valid_session
+        Scouting::Report.any_instance.should_receive(:update_attributes).with({ "solar_system_id" => "1" })
+        put :update, {:id => report.to_param, :scouting_report => { "solar_system_id" => "1" }}, valid_session
       end
 
       it "assigns the requested scouting_report as @scouting_report" do
@@ -135,7 +138,7 @@ describe Scouting::ReportsController do
         report = Scouting::Report.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Scouting::Report.any_instance.stub(:save).and_return(false)
-        put :update, {:id => report.to_param, :scouting_report => { "star_id" => "invalid value" }}, valid_session
+        put :update, {:id => report.to_param, :scouting_report => { "solar_system_id" => "invalid value" }}, valid_session
         assigns(:scouting_report).should eq(report)
       end
 
@@ -143,7 +146,7 @@ describe Scouting::ReportsController do
         report = Scouting::Report.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Scouting::Report.any_instance.stub(:save).and_return(false)
-        put :update, {:id => report.to_param, :scouting_report => { "star_id" => "invalid value" }}, valid_session
+        put :update, {:id => report.to_param, :scouting_report => { "solar_system_id" => "invalid value" }}, valid_session
         response.should render_template("edit")
       end
     end

@@ -10,7 +10,6 @@ class Scouting::ReportsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @scouting_reports }
     end
   end
 

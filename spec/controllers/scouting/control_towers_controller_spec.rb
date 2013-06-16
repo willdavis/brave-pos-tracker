@@ -33,7 +33,7 @@ describe Scouting::ControlTowersController do
   # Scouting::ControlTower. As you add validations to Scouting::ControlTower, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) { 
-    { "region_id" => 1, "constellation_id" => 1, "solar_system_id" => 1, "moon_id" => 1, "control_tower_type_id" => 1 } 
+    { "region_id" => 1, "constellation_id" => 1, "solar_system_id" => 1, "moon_id" => 2, "control_tower_type_id" => 1 } 
   }
 
   # This should return the minimal set of values that should be in the session

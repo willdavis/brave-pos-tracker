@@ -7,9 +7,24 @@
 
 <p>
   <b>Solar System:</b>
-  <%= @scouting_report.solar_system_name %> (ID:<%= @scouting_report.solar_system_id %>)
+  <%= @scouting_report.solar_system_name %>
 </p>
 
+<h3>Control Towers</h3>
+<table class="table">
+  <tr>
+    <th>Moon</th>
+    <th>Tower Type</th>
+    <th>Owner ID</th>
+  </tr>
+<% for tower in @scouting_report.control_towers %>
+  <tr>
+    <td><%= tower.moon_name %></td>
+    <td><%= tower.control_tower_type_name %></td>
+    <td><%= tower.corporation_id %></td>
+  </tr>
+<% end %>
+</table>
 
-<%= link_to 'Edit', edit_scouting_report_path(@scouting_report) %> |
+
 <%= link_to 'Back', scouting_reports_path %>

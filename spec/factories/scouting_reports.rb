@@ -2,6 +2,8 @@
 
 FactoryGirl.define do
   factory :scouting_report, :class => 'Scouting::Report' do
-    star_id 1
+    solar_system_id 1
+    solar_system_name "test"
+    user_id 1
   end
 end
