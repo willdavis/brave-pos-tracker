@@ -70,22 +70,26 @@ class Forms::ReportAnalysis
     
     #Parse probe results
     CSV.parse(raw_probe_data, options = { :col_sep => "\t" }) do |row|
-      group = row[2]
-      distance = row[5]
+      group = row[2]    #groupName of the object
+      distance = row[5] #distance to the object (relative to the ship in space)
       
+      #Filter for Control Towers and disregard any objects over 1.0 AU away
       if group.match(/Control Tower/) and distance.match(/AU/).nil?
-        control_tower_name = row[3]
+        control_tower_name = row[3]   #typeName of the object
         
-        #convert from "X,YYY,ZZZ km" to XYYYZZZ
+        #convert the string "X,YYY,ZZZ km" to the integer XYYYZZZ
         distance = distance.gsub(/[^0-9]/,'').to_i
         
-        #find the closest moon
+        #find the closest moon to the control tower
         for moon in moons
           moon_name = moon[0]
           moon_distance = moon[1]
           
+          #compare the distance to each moon with the distance to the control tower (relative to the pilot)
+          #if the control tower is within +/- 10km of a moon, then assign that moons id to the control tower
           if distance.between?(moon_distance-10000,moon_distance+10000)
             
+            #query evedata.io for the moons celestial data and control tower typeId
             url_safe_moon_name = moon_name.gsub(/ /,'%20')
             url_safe_tower_name = control_tower_name.gsub(/ /,'%20')
             moon_result = JSON.parse(open("http://evedata.herokuapp.com/celestials?name=#{url_safe_moon_name}").read).first
@@ -101,7 +105,7 @@ class Forms::ReportAnalysis
             control_tower_params["control_tower_type_id"] = tower_result["id"]
             control_tower_params["control_tower_type_name"] = tower_result["name"]
             
-            control_towers.push(new_control_tower(control_tower_params))
+            control_towers.push(control_tower(control_tower_params))
           end
         end
       end
@@ -134,15 +138,14 @@ class Forms::ReportAnalysis
     false
   end
   
-  def new_control_tower(params)
-    Scouting::ControlTower.new(
+  def control_tower(params)
+    Scouting::ControlTower.where(:moon_id => params["moon_id"]).first_or_initialize(
       :control_tower_type_name => params["control_tower_type_name"],
       :control_tower_type_id => params["control_tower_type_id"],
       :moon_name => params["moon_name"],
-      :moon_id => params["moon_id"],
       :region_id => params["region_id"],
       :constellation_id => params["constellation_id"],
       :solar_system_id => params["solar_system_id"],
-      )
+    )
   end
 end
