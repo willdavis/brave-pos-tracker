@@ -142,7 +142,7 @@ class Forms::ReportAnalysis
     ActiveRecord::Base.transaction do
       report.save!
       control_towers.each do |tower|
-        tower.save!        
+        tower.save!
       end
     end
   rescue
