@@ -3,7 +3,7 @@ class Admin::DashboardController < ApplicationController
   
   def applications
     authorize! :manage, @users
-    @users = User.includes(:roles).where("confirmed_at NOT ? AND roles_users.role_id IS ?", nil, nil)
+    @users = User.includes(:roles).where("confirmed_at IS NOT ? AND roles_users.role_id IS ?", nil, nil)
   end
   
   def accept_application
