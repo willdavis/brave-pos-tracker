@@ -14,7 +14,7 @@
         <td><%= report.solar_system_name %></td>
         <td>
           <%= link_to 'Show', report, :class => "btn" %>
-          <%= link_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn" %>
+          <%= link_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %>
         </td>
       </tr>
     <% end %>
@@ -37,7 +37,7 @@
           <td><%= report.solar_system_name %></td>
           <td>
             <%= link_to 'Edit', draft_scouting_report_path(report), :class => "btn" %>
-            <%= link_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn" %>
+            <%= link_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %>
           </td>
         </tr>
       <% end %>
