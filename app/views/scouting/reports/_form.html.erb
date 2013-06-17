@@ -11,9 +11,8 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.text_field :solar_system_name, :autocomplete => :off, :placeholder => "solar system name", :data => { :provide =>"typeahead" } %>
-  </div>
+  <%= f.label :solar_system_name, "Solar System Name" %>
+  <%= f.text_field :solar_system_name, :autocomplete => :off, :placeholder => "solar system name", :data => { :provide =>"typeahead" }, :class => "span3" %>
   
   <%= f.label :raw_dscan_data, "Directional Scan Results" %>
   <%= f.text_area :raw_dscan_data, :placeholder => "direction scan results", :size => "5x10" %>
@@ -23,6 +22,6 @@
   <%= f.hidden_field :solar_system_id %>
   <%= f.hidden_field :user_id, :value => current_user.id %>
   <div class="actions">
-    <%= f.submit "Analyze Report" %>
+    <%= f.submit "Analyze Report", :class => "btn btn-primary" %>
   </div>
 <% end %>
