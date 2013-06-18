@@ -83,7 +83,7 @@ class Forms::ReportAnalysis
   
   def parse_moons
     CSV.parse(raw_dscan_data, options = { :col_sep => "\t" }) do |row|
-      if row[1].match(/Moon/) and row[2].match(/AU/).nil?
+      if row[1].match(/\AMoon\Z/) and row[2].match(/AU/).nil?
         name = row[0]
         
         #convert from "X,YYY,ZZZ km" to XYYYZZZ
