@@ -17,6 +17,8 @@ class Forms::ReportAnalysis
   validates :user_id,           :presence => true
   validates :solar_system_id,   :presence => true
   validates :solar_system_name, :presence => true
+  validates :raw_dscan_data,    :presence => true
+  validates :raw_probe_data,    :presence => true
   
   validate do
     [user, report].each do |object|
@@ -59,13 +61,16 @@ class Forms::ReportAnalysis
   end
   
   def save
+    #check the validity of the Forms::ReportAnalysis object
+    return false unless valid?
+    
     #Parse directional scan results
     parse_dscan_results unless raw_dscan_data.nil?
     
     #Parse probe results
     parse_probe_results unless raw_probe_data.nil?
     
-    #check the validity of the Forms::ReportAnalysis object
+    #check the validity of any newly created towers
     return false unless valid?
     
     #Save the analyzed objects
@@ -103,24 +108,18 @@ class Forms::ReportAnalysis
   end
   
   def analyze_moon(name, distance)
-    puts "Moon detected!\tname:#{name}\tdistance:#{distance}\t"
+    #convert from "X,YYY,ZZZ km" to XYYYZZZ
+    number = distance.gsub(/[^0-9]/,'').to_i
+  
+    puts "Moon detected!\nname:#{name}\tdistance:#{distance} => #{number}"
+    moons.push([name,number])
   end
   
   def analyze_control_tower(name, distance)
-    puts "Control Tower detected!\tname:#{name}\tdistance:#{distance}\t"
-  end
-  
-  def parse_moons
-    CSV.parse(raw_dscan_data, options = { :col_sep => "\t" }) do |row|
-      if row[1].match(/\AMoon\Z/) and row[2].match(/AU/).nil?
-        name = row[0]
-        
-        #convert from "X,YYY,ZZZ km" to XYYYZZZ
-        distance = row[2].gsub(/[^0-9]/,'').to_i
-        
-        moons.push([name,distance])
-      end
-    end
+    #convert from "X,YYY,ZZZ km" to XYYYZZZ
+    number = distance.gsub(/[^0-9]/,'').to_i
+    
+    puts "Control Tower detected!\nname:#{name}\tdistance:#{distance} => #{number}"
   end
   
   def parse_control_towers
