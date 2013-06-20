@@ -60,10 +60,10 @@ class Forms::ReportAnalysis
   
   def save
     #Parse directional scan results
-    parse_moons unless raw_dscan_data.nil?
+    parse_dscan_results unless raw_dscan_data.nil?
     
     #Parse probe results
-    parse_control_towers unless raw_dscan_data.nil? or raw_probe_data.nil?
+    parse_probe_results unless raw_probe_data.nil?
     
     #check the validity of the Forms::ReportAnalysis object
     return false unless valid?
@@ -80,6 +80,23 @@ class Forms::ReportAnalysis
   end
   
   private
+  
+  def parse_dscan_results
+    CSV.parse(raw_dscan_data, options = { :col_sep => "\t" }) do |row|
+      object_name = row[0]
+      object_group = row[1]
+      object_distance = row[2]
+    end
+  end
+  
+  def parse_probe_results
+    CSV.parse(raw_probe_data, options = { :col_sep => "\t" }) do |row|
+      object_category = row[1]
+      object_group = row[2]
+      object_name = row[3]
+      object_distance = row[5]
+    end
+  end
   
   def parse_moons
     CSV.parse(raw_dscan_data, options = { :col_sep => "\t" }) do |row|
