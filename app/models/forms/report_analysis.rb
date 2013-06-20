@@ -86,6 +86,8 @@ class Forms::ReportAnalysis
       object_name = row[0]
       object_group = row[1]
       object_distance = row[2]
+      
+      analyze_moon(object_name, object_distance) if object_group.match(/\AMoon\Z/) and object_distance.match(/AU/).nil?
     end
   end
   
@@ -95,7 +97,17 @@ class Forms::ReportAnalysis
       object_group = row[2]
       object_name = row[3]
       object_distance = row[5]
+      
+      analyze_control_tower(object_name, object_distance) if object_group.match(/Control Tower/) and object_distance.match(/AU/).nil?
     end
+  end
+  
+  def analyze_moon(name, distance)
+    puts "Moon detected!\tname:#{name}\tdistance:#{distance}\t"
+  end
+  
+  def analyze_control_tower(name, distance)
+    puts "Control Tower detected!\tname:#{name}\tdistance:#{distance}\t"
   end
   
   def parse_moons
