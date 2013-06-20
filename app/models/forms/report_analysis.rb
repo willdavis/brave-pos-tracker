@@ -48,6 +48,10 @@ class Forms::ReportAnalysis
     @control_towers ||= []
   end
   
+  def moons
+    @moons ||= []
+  end
+  
   def initialize(attributes = {})
     ATTRIBUTES.each do |attribute|
       send("#{attribute}=", attributes[attribute])
@@ -76,10 +80,6 @@ class Forms::ReportAnalysis
   end
   
   private
-  
-  def moons
-    @moons ||= []
-  end
   
   def parse_moons
     CSV.parse(raw_dscan_data, options = { :col_sep => "\t" }) do |row|
