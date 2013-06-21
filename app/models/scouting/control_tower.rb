@@ -6,6 +6,6 @@ class Scouting::ControlTower < ActiveRecord::Base
     has_and_belongs_to_many :reports, :class_name => "Scouting::Report"
     
     def structures
-      structure_ids.split(',').map { |s| s.to_i }
+      structure_ids.split(',').map { |s| s.to_i } unless structure_ids.nil?
     end
 end
