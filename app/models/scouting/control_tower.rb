@@ -4,4 +4,8 @@ class Scouting::ControlTower < ActiveRecord::Base
   attr_accessor :distance
   
     has_and_belongs_to_many :reports, :class_name => "Scouting::Report"
+    
+    def structures
+      structure_ids.split(',').map { |s| s.to_i }
+    end
 end
