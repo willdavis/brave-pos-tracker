@@ -17,6 +17,8 @@ class Forms::ReportAnalysis
   validates :user_id,           :presence => true
   validates :solar_system_id,   :presence => true
   validates :solar_system_name, :presence => true
+  validates :raw_dscan_data,    :presence => true
+  validates :raw_probe_data,    :presence => true
   
   validate do
     [user, report].each do |object|
@@ -48,6 +50,10 @@ class Forms::ReportAnalysis
     @control_towers ||= []
   end
   
+  def moons
+    @moons ||= []
+  end
+  
   def initialize(attributes = {})
     ATTRIBUTES.each do |attribute|
       send("#{attribute}=", attributes[attribute])
@@ -55,13 +61,16 @@ class Forms::ReportAnalysis
   end
   
   def save
+    #check the validity of the Forms::ReportAnalysis object
+    return false unless valid?
+    
     #Parse directional scan results
-    parse_moons unless raw_dscan_data.nil?
+    parse_dscan_results unless raw_dscan_data.nil?
     
     #Parse probe results
-    parse_control_towers unless raw_dscan_data.nil? or raw_probe_data.nil?
+    parse_probe_results unless raw_probe_data.nil?
     
-    #check the validity of the Forms::ReportAnalysis object
+    #check the validity of any newly created towers
     return false unless valid?
     
     #Save the analyzed objects
@@ -77,65 +86,90 @@ class Forms::ReportAnalysis
   
   private
   
-  def moons
-    @moons ||= []
-  end
-  
-  def parse_moons
+  def parse_dscan_results
     CSV.parse(raw_dscan_data, options = { :col_sep => "\t" }) do |row|
-      if row[1].match(/\AMoon\Z/) and row[2].match(/AU/).nil?
-        name = row[0]
-        
-        #convert from "X,YYY,ZZZ km" to XYYYZZZ
-        distance = row[2].gsub(/[^0-9]/,'').to_i
-        
-        moons.push([name,distance])
-      end
+      object_name = row[0]
+      object_group = row[1]
+      object_distance = row[2]
+      
+      analyze_moon(object_name, object_distance) if object_group.match(/\AMoon\Z/) and object_distance.match(/AU/).nil?
     end
   end
   
-  def parse_control_towers
+  def parse_probe_results
+    towers = []
+    structures = []
     CSV.parse(raw_probe_data, options = { :col_sep => "\t" }) do |row|
-      group = row[2]    #groupName of the object
-      distance = row[5] #distance to the object (relative to the ship in space)
+      object_category = row[1]
+      object_group = row[2]
+      object_name = row[3]
+      object_distance = row[5]
       
-      #Filter for Control Towers and disregard any objects over 1.0 AU away
-      if group.match(/Control Tower/) and distance.match(/AU/).nil?
-        control_tower_name = row[3]   #typeName of the object
-        
-        #convert the string "X,YYY,ZZZ km" to the integer XYYYZZZ
-        distance = distance.gsub(/[^0-9]/,'').to_i
-        
-        #find the closest moon to the control tower
-        for moon in moons
-          moon_name = moon[0]
-          moon_distance = moon[1]
-          
-          #compare the distance to each moon with the distance to the control tower (relative to the pilot)
-          #if the control tower is within +/- 10km of a moon, then assign that moons id to the control tower
-          if distance.between?(moon_distance-10000,moon_distance+10000)
-            
-            #query evedata.io for the moons celestial data and control tower typeId
-            url_safe_moon_name = moon_name.gsub(/ /,'%20')
-            url_safe_tower_name = control_tower_name.gsub(/ /,'%20')
-            moon_result = JSON.parse(open("http://evedata.herokuapp.com/celestials?name=#{url_safe_moon_name}").read).first
-            tower_result = JSON.parse(open("http://evedata.herokuapp.com/control_towers?name=#{url_safe_tower_name}").read).first
-            
-            control_tower_params = {}
-            control_tower_params["moon_id"] = moon_result["id"]
-            control_tower_params["moon_name"] = moon_result["name"]
-            control_tower_params["solar_system_id"] = moon_result["solar_system_id"]
-            control_tower_params["constellation_id"] = moon_result["constellation_id"]
-            control_tower_params["region_id"] = moon_result["region_id"]
-            
-            control_tower_params["control_tower_type_id"] = tower_result["id"]
-            control_tower_params["control_tower_type_name"] = tower_result["name"]
-            
-            control_towers.push(control_tower(control_tower_params))
-          end
+      towers.push(analyze_control_tower(object_name, object_distance)) if object_group.match(/Control Tower/) and object_distance.match(/AU/).nil?
+      structures.push(analyze_structure(object_name, object_distance)) if object_category.match(/Structure/) and object_group.match(/Control Tower/).nil? and object_distance.match(/AU/).nil?
+    end
+    
+    #build control towers
+    towers.each do |tower|
+      moons.each do |moon|
+        if tower["distance"].between?(moon["distance"]-10000,moon["distance"]+10000)
+          tower["moon_id"] = moon["id"]
+          control_towers.push(build_control_tower(tower, moon))
         end
       end
     end
+    
+    #attach structures to control towers
+    structures.each do |structure|
+      towers.each do |tower|
+        if structure["distance"].between?(tower["distance"]-1000,tower["distance"]+1000) and !tower["moon_id"].nil?
+          control_tower = control_towers.select{ |tower| tower.moon_id == tower["moon_id"] }.first
+          control_tower.structure_ids.nil? ? control_tower.structure_ids = structure["id"].to_s : control_tower.structure_ids << ",#{structure["id"]}"
+        end
+      end
+    end
+  end
+  
+  def analyze_moon(name, distance)
+    puts "Moon detected!"
+    
+    #convert from "X,YYY,ZZZ km" to XYYYZZZ
+    number = distance.gsub(/[^0-9]/,'').to_i
+    
+    url_safe_moon_name = name.gsub(/ /,'%20')
+    moon = JSON.parse(open("http://evedata.herokuapp.com/celestials?name=#{url_safe_moon_name}").read).first
+    moon["distance"] = number
+    
+    puts moon
+    moons.push(moon)
+  end
+  
+  def analyze_control_tower(name, distance)
+    puts "Control Tower detected!"
+    
+    #convert from "X,YYY,ZZZ km" to XYYYZZZ
+    number = distance.gsub(/[^0-9]/,'').to_i
+    
+    url_safe_tower_name = name.gsub(/ /,'%20')
+    tower = JSON.parse(open("http://evedata.herokuapp.com/control_towers?name=#{url_safe_tower_name}").read).first
+    tower["distance"] = number
+    
+    puts tower
+    tower
+  end
+  
+  def analyze_structure(name, distance)
+    puts "Structure detected!"
+    
+    #convert from "X,YYY,ZZZ km" to XYYYZZZ
+    number = distance.gsub(/[^0-9]/,'').to_i
+    
+    url_safe_name = name.gsub(/ /,'%20')
+    structure = JSON.parse(open("http://evedata.herokuapp.com/structures?name=#{url_safe_name}").read).first
+    structure["distance"] = number
+    
+    puts structure
+    structure
   end
 
   def create_objects
@@ -149,14 +183,14 @@ class Forms::ReportAnalysis
     false
   end
   
-  def control_tower(params)
-    Scouting::ControlTower.where(:moon_id => params["moon_id"]).first_or_initialize(
-      :control_tower_type_name => params["control_tower_type_name"],
-      :control_tower_type_id => params["control_tower_type_id"],
-      :moon_name => params["moon_name"],
-      :region_id => params["region_id"],
-      :constellation_id => params["constellation_id"],
-      :solar_system_id => params["solar_system_id"],
+  def build_control_tower(tower, moon)
+    Scouting::ControlTower.where(:moon_id => moon["id"]).first_or_initialize(
+      :control_tower_type_name => tower["name"],
+      :control_tower_type_id => tower["id"],
+      :moon_name => moon["name"],
+      :region_id => moon["region_id"],
+      :constellation_id => moon["constellation_id"],
+      :solar_system_id => moon["solar_system_id"],
     )
   end
 end
