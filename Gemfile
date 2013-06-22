@@ -36,6 +36,7 @@ gem "cancan"
 gem 'bootstrap-sass', '~> 2.3.1.2'
 
 gem 'sidekiq'
+gem 'unicorn'
 
 group :development do
   gem "better_errors"
