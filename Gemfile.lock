@@ -157,6 +157,8 @@ GEM
       json
       redis (>= 3.0)
       redis-namespace
+    sidekiq-status (0.3.0)
+      sidekiq (~> 2.7)
     sinatra (1.4.3)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -221,6 +223,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 3.2.3)
   sidekiq
+  sidekiq-status
   sinatra
   slim
   sqlite3
