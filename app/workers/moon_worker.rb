@@ -1,6 +1,9 @@
 class MoonWorker
   include Sidekiq::Worker
+  include Sidekiq::Status::Worker
+  
   def perform(name)
-    puts JSON.parse(open("http://evedata.herokuapp.com/solar_systems?name=#{name}").read).first
+    moon_info = open("http://evedata.herokuapp.com/celestials?name=#{name}").read
+    store moon: moon_info
   end
 end
