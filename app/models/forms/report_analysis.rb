@@ -28,14 +28,6 @@ class Forms::ReportAnalysis
         end
       end
     end
-    
-    control_towers.each do |object|
-      unless object.valid?
-        object.errors.each do |key, values|
-          errors[key] = values
-        end
-      end
-    end
   end
   
   def user
@@ -64,21 +56,13 @@ class Forms::ReportAnalysis
     #check the validity of the Forms::ReportAnalysis object
     return false unless valid?
     
-    #Parse directional scan results
-    parse_dscan_results unless raw_dscan_data.nil?
-    
-    #Parse probe results
-    parse_probe_results unless raw_probe_data.nil?
-    
-    #check the validity of any newly created towers
-    return false unless valid?
-    
-    #Save the analyzed objects
+    #Save the report
     if create_objects
       user.scouting_reports << report
-      control_towers.each do |tower|
-        report.control_towers << tower
-      end
+      
+      #que the report to be analyzed
+      jid = Scouting::ReportWorker.perform_async(report.id, raw_dscan_data, raw_probe_data)
+      report.update_attributes(:job_id => jid)
     else
       false
     end
@@ -175,9 +159,6 @@ class Forms::ReportAnalysis
   def create_objects
     ActiveRecord::Base.transaction do
       report.save!
-      control_towers.each do |tower|
-        tower.save!
-      end
     end
   rescue
     false
