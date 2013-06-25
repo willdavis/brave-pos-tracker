@@ -1,4 +1,4 @@
-class MoonWorker
+class Scouting::MoonWorker
   include Sidekiq::Worker
   include Sidekiq::Status::Worker
   
