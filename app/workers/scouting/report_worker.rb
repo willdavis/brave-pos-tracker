@@ -1,14 +1,21 @@
+require 'open-uri'
+require 'json'
+require 'csv'
+
 class Scouting::ReportWorker
   include Sidekiq::Worker
   include Sidekiq::Status::Worker
   
   def perform(id, dscan_data, probe_data)
+    report = Scouting::Report.find(id)
+    
     parse_dscan_results(dscan_data)
     parse_probe_results(probe_data)
     
     if create_objects
-      report = Scouting::Report.find(id)
       report.control_towers << control_towers
+      report.analyzed = true
+      report.save!
     else
       raise "unable to save control towers"
     end
@@ -69,44 +76,32 @@ class Scouting::ReportWorker
   end
   
   def analyze_moon(name, distance)
-    puts "Moon detected!"
-    
     #convert from "X,YYY,ZZZ km" to XYYYZZZ
     number = distance.gsub(/[^0-9]/,'').to_i
     
     url_safe_moon_name = name.gsub(/ /,'%20')
     moon = JSON.parse(open("http://evedata.herokuapp.com/celestials?name=#{url_safe_moon_name}").read).first
     moon["distance"] = number
-    
-    puts moon
     moons.push(moon)
   end
   
   def analyze_control_tower(name, distance)
-    puts "Control Tower detected!"
-    
     #convert from "X,YYY,ZZZ km" to XYYYZZZ
     number = distance.gsub(/[^0-9]/,'').to_i
     
     url_safe_tower_name = name.gsub(/ /,'%20')
     tower = JSON.parse(open("http://evedata.herokuapp.com/control_towers?name=#{url_safe_tower_name}").read).first
     tower["distance"] = number
-    
-    puts tower
     tower
   end
   
   def analyze_structure(name, distance)
-    puts "Structure detected!"
-    
     #convert from "X,YYY,ZZZ km" to XYYYZZZ
     number = distance.gsub(/[^0-9]/,'').to_i
     
     url_safe_name = name.gsub(/ /,'%20')
     structure = JSON.parse(open("http://evedata.herokuapp.com/structures?name=#{url_safe_name}").read).first
     structure["distance"] = number
-    
-    puts structure
     structure
   end
 
