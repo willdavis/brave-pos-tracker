@@ -5,6 +5,10 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'redis'
+gem 'sinatra'
+gem 'slim'
+
 group :development, :test do
   gem 'sqlite3'
 end
@@ -33,6 +37,11 @@ gem "cancan"
 
 gem 'bootstrap-sass', '~> 2.3.1.2'
 
+gem 'sidekiq'
+gem 'sidekiq-status'
+
+gem 'newrelic_rpm'
+gem 'unicorn'
 
 group :development do
   gem "better_errors"
