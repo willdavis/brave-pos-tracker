@@ -97,6 +97,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.23)
     multi_json (1.7.4)
+    newrelic_rpm (3.6.4.122)
     nokogiri (1.5.9)
     orm_adapter (0.4.0)
     pg (0.15.1)
@@ -216,6 +217,7 @@ DEPENDENCIES
   figaro
   jquery-rails
   launchy
+  newrelic_rpm
   pg
   quiet_assets
   rails (= 3.2.13)

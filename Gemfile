@@ -39,6 +39,8 @@ gem 'bootstrap-sass', '~> 2.3.1.2'
 
 gem 'sidekiq'
 gem 'sidekiq-status'
+
+gem 'newrelic_rpm'
 gem 'unicorn'
 
 group :development do
