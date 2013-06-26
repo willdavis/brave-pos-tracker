@@ -6,7 +6,8 @@ class Scouting::ReportsController < ApplicationController
   # GET /scouting/reports.json
   def index
     @published_reports = Scouting::Report.where(:published => true)
-    @draft_reports = Scouting::Report.where(:published => false, :user_id => current_user.id)
+    @draft_reports = Scouting::Report.where(:published => false, :analyzed => true, :user_id => current_user.id)
+    @queued_reports = Scouting::Report.where(:published => false, :analyzed => false, :user_id => current_user.id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -66,7 +67,7 @@ class Scouting::ReportsController < ApplicationController
 
     respond_to do |format|
       if @scouting_report.save
-        format.html { redirect_to draft_scouting_report_path(@scouting_report.report), notice: 'Report has been analyzed.' }
+        format.html { redirect_to draft_scouting_report_path(@scouting_report.report), notice: 'Report has been queued for analysis.' }
         format.json { render json: @scouting_report, status: :created, location: @scouting_report }
       else
         format.html { render action: "new" }
