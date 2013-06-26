@@ -6,6 +6,8 @@ BravePosTracker::Application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
   
+  ENV["REDISTOGO_URL"] = 'redis://127.0.0.1:6379'
+  
   # This will enable links in Devise confirmation email messages to work properly during development
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :sendmail

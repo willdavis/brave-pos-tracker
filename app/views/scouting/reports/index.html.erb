@@ -1,5 +1,16 @@
 <div class="row">
   <div class="span6">
+    Your Queued Reports:
+    <ul>
+    <% @queued_reports.each do |report| %>
+      <li>System:<%= report.solar_system_name %> (ID:<%= report.job_id %>)</li>
+    <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span6">
     <h2>Published Reports</h2>
     <table class="table">
       <tr>
@@ -46,4 +57,4 @@
   <% end %>
 </div>
 
-<%= link_to 'New Report', new_scouting_report_path, :class => "btn" %>
+<%= link_to 'New Report', new_scouting_report_path, :class => "btn btn-primary" %>

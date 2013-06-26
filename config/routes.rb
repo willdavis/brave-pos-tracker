@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 BravePosTracker::Application.routes.draw do
   namespace :scouting do
     resources :reports do
@@ -8,6 +10,8 @@ BravePosTracker::Application.routes.draw do
   end
 
   namespace :admin do
+    mount Sidekiq::Web, at: '/sidekiq'
+  
     resources :roles
     
     get "dashboard/applications"
