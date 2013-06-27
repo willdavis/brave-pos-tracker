@@ -21,8 +21,6 @@ class Scouting::ReportWorker
     end
   end
   
-  private
-  
   def control_towers
     @control_towers ||= []
   end
@@ -31,8 +29,12 @@ class Scouting::ReportWorker
     @moons ||= []
   end
   
+  private
+  
   def parse_dscan_results(dscan_data)
     CSV.parse(dscan_data, options = { :col_sep => "\t" }) do |row|
+      raise "Incorrectly formatted directional scan results" if row[0].nil? or row[1].nil? or row[2].nil?
+      
       object_name = row[0]
       object_group = row[1]
       object_distance = row[2]
@@ -42,6 +44,8 @@ class Scouting::ReportWorker
   end
   
   def parse_probe_results(probe_data)
+    raise "Incorrectly formatted probe results" if row[1].nil? or row[2].nil? or row[3].nil? or row[5].nil?
+    
     towers = []
     structures = []
     CSV.parse(probe_data, options = { :col_sep => "\t" }) do |row|
@@ -59,7 +63,10 @@ class Scouting::ReportWorker
       moons.each do |moon|
         if tower["distance"].between?(moon["distance"]-10000,moon["distance"]+10000)
           tower["moon_id"] = moon["id"]
-          control_towers.push(build_control_tower(tower, moon))
+          new_tower = build_control_tower(tower, moon)
+          raise "Unable to build control tower from:\ntower:#{tower}\nmoon:#{moon}" if new_tower.nil?
+          
+          control_towers.push(new_tower)
         end
       end
     end
@@ -107,6 +114,7 @@ class Scouting::ReportWorker
 
   def create_objects
     ActiveRecord::Base.transaction do
+      raise "Control Towers array is empty!  Unable to save towers." if control_towers.empty?
       control_towers.each do |tower|
         tower.save!
       end
