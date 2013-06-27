@@ -45,11 +45,11 @@ class Scouting::ReportWorker
   end
   
   def parse_probe_results(probe_data)
-    raise "Incorrectly formatted probe results" if row[1].nil? or row[2].nil? or row[3].nil? or row[5].nil?
-    
     towers = []
     structures = []
     CSV.parse(probe_data, options = { :col_sep => "\t" }) do |row|
+      raise "Incorrectly formatted probe results" if row[1].nil? or row[2].nil? or row[3].nil? or row[5].nil?
+      
       object_category = row[1]
       object_group = row[2]
       object_name = row[3]
