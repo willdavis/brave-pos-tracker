@@ -9,14 +9,6 @@ class Scouting::ControlTower < ActiveRecord::Base
     
     def structures
       return [] if structure_ids.nil?
-      
-      structure_array = structure_ids.split(',').map { |s| s.to_i }
-      structure_names = []
-      structure_array.each do |id|
-        item = JSON.parse(open("http://evedata.herokuapp.com/structures/#{id}").read).first
-        structure_names.push(item["name"])
-      end
-      
-      structure_names
+      structure_ids.split(',').map { |s| s.to_i }
     end
 end
