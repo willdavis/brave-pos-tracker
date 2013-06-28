@@ -5,7 +5,7 @@ require 'csv'
 class Scouting::ReportWorker
   include Sidekiq::Worker
   include Sidekiq::Status::Worker
-  sidekiq_options :retry => false, :backtrace => true
+  sidekiq_options :retry => 3, :backtrace => true
   
   def perform(id, dscan_data, probe_data)
     report = Scouting::Report.find(id)
