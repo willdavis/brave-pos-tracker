@@ -3,7 +3,8 @@
     Your Queued Reports:
     <ul>
     <% @queued_reports.each do |report| %>
-      <li>System:<%= report.solar_system_name %> (ID:<%= report.job_id %>)</li>
+      <li>System:<%= report.solar_system_name %> (ID:<%= report.job_id %>)
+        <%= link_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %></li>
     <% end %>
     </ul>
   </div>
