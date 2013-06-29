@@ -5,7 +5,7 @@ class Scouting::ReportsController < ApplicationController
   # GET /scouting/reports
   # GET /scouting/reports.json
   def index
-    @published_reports = Scouting::Report.where(:published => true)
+    @published_reports = Scouting::Report.where(:published => true).limit(10)
     @draft_reports = Scouting::Report.where(:published => false, :analyzed => true, :user_id => current_user.id)
     @queued_reports = Scouting::Report.where(:published => false, :analyzed => false, :user_id => current_user.id)
 
