@@ -13,7 +13,11 @@ class Scouting::ReportWorker
     parse_dscan_results(dscan_data)
     parse_probe_results(probe_data)
     
-    create_objects
+    if create_objects
+      report.control_towers << control_towers
+      report.analyzed = true
+      report.save!
+    end
   end
   
   def control_towers
@@ -113,11 +117,6 @@ class Scouting::ReportWorker
       control_towers.each do |tower|
         tower.save!
       end
-      
-      report.control_towers << control_towers
-      
-      report.analyzed = true
-      report.save!
     end
   end
   
