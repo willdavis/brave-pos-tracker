@@ -31,7 +31,12 @@ class Forms::ReportAnalysis
   end
   
   def report
-    @report ||= Scouting::Report.new(:solar_system_id => solar_system_id, :solar_system_name => solar_system_name)
+    @report ||= Scouting::Report.new(
+      :solar_system_id => solar_system_id, 
+      :solar_system_name => solar_system_name,
+      :raw_dscan_data => raw_dscan_data,
+      :raw_probe_data => raw_probe_data
+    )
   end
   
   def initialize(attributes = {})
@@ -46,11 +51,8 @@ class Forms::ReportAnalysis
     
     #Save the report
     if create_objects
+      report.save!
       user.scouting_reports << report
-      
-      #que the report to be analyzed
-      jid = Scouting::ReportWorker.perform_async(report.id, raw_dscan_data, raw_probe_data)
-      report.update_attributes(:job_id => jid)
     else
       false
     end
