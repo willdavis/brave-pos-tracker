@@ -13,13 +13,7 @@ class Scouting::ReportWorker
     parse_dscan_results(dscan_data)
     parse_probe_results(probe_data)
     
-    if create_objects
-      report.control_towers << control_towers
-      report.analyzed = true
-      report.save!
-    else
-      raise "unable to save control towers"
-    end
+    create_objects
   end
   
   def control_towers
@@ -64,6 +58,7 @@ class Scouting::ReportWorker
       moons.each do |moon|
         if tower["distance"].between?(moon["distance"]-10000,moon["distance"]+10000)
           tower["moon_id"] = moon["id"]
+          
           new_tower = build_control_tower(tower, moon)
           raise "Unable to build control tower from:\ntower:#{tower}\nmoon:#{moon}" if new_tower.nil?
           
@@ -115,13 +110,15 @@ class Scouting::ReportWorker
 
   def create_objects
     ActiveRecord::Base.transaction do
-      raise "Control Towers array is empty!  Unable to save towers." if control_towers.empty?
       control_towers.each do |tower|
         tower.save!
       end
+      
+      report.control_towers << control_towers
+      
+      report.analyzed = true
+      report.save!
     end
-  rescue
-    false
   end
   
   def build_control_tower(tower, moon)
