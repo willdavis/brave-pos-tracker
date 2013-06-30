@@ -51,6 +51,7 @@ class Forms::ReportAnalysis
     
     #Save the report
     if create_objects
+      report.save!
       user.scouting_reports << report
     else
       false

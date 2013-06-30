@@ -8,6 +8,6 @@ class Scouting::Report < ActiveRecord::Base
   after_commit :queue_job, :on => :create
   
   def queue_job
-    job_id = Scouting::ReportWorker.perform_async(id, raw_dscan_data, raw_probe_data)
+    self.job_id = Scouting::ReportWorker.perform_async(id, raw_dscan_data, raw_probe_data)
   end
 end
