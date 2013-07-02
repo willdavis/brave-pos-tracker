@@ -1,0 +1,8 @@
+<h2>All known corporations</h2>
+
+Corporations:
+<ul>
+<% @corporations.each do |corp| %>
+  <li><%= link_to "#{corp.name}", corporation_path(corp.id) %></li>
+<% end %>
+</ul>

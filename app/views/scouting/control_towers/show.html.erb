@@ -26,8 +26,13 @@
 </p>
 
 <p>
-  <b>Owner:</b>
-  <%= @scouting_control_tower.corporation_id %>
+  <b>Owner Corporation:</b>
+  <%= @scouting_control_tower.corporation.name %>
+</p>
+
+<p>
+  <b>Owner Alliance:</b>
+  <%= @scouting_control_tower.corporation.alliance_name %>
 </p>
 
 <p>
