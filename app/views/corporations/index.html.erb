@@ -3,6 +3,6 @@
 Corporations:
 <ul>
 <% @corporations.each do |corp| %>
-  <li><%= corp.name %></li>
+  <li><%= link_to "#{corp.name}", corporation_path(corp.id) %></li>
 <% end %>
 </ul>
