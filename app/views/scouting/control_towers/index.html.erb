@@ -2,7 +2,8 @@
 
 <table class="table">
   <tr>
-    <th>Owner ID</th>
+    <th>Owner Corp</th>
+    <th>Owner Alliance</th>
     <th>Moon</th>
     <th>Control tower type</th>
     <th>Solar system</th>
@@ -14,8 +15,10 @@
   </tr>
 
 <% @scouting_control_towers.each do |scouting_control_tower| %>
+  <% corp = Corporation.new(scouting_control_tower.corporation_id) %>
   <tr>
-    <td><%= scouting_control_tower.corporation_id %></td>
+    <td><%= corp.name %></td>
+    <td><%= corp.alliance_name %></td>
     <td><%= scouting_control_tower.moon_name %></td>
     <td><%= scouting_control_tower.control_tower_type_name %></td>
     <td><%= scouting_control_tower.solar_system_id %></td>
