@@ -19,4 +19,32 @@ class Corporation
       send("#{attribute}=", corp.xpath("//result/#{attribute}"))
     end
   end
+  
+  def id
+    return corporationID.text.to_i
+  end
+  
+  def alliance_id
+    return allianceID.text.to_i
+  end
+  
+  def name
+    return  corporationName.text
+  end
+  
+  def ticker_symbol
+    return ticker.text
+  end
+  
+  def ceo_name
+    return ceoName.text
+  end
+  
+  def alliance_name
+    return allianceName.text
+  end
+  
+  def member_count
+    return memberCount.text.to_i
+  end
 end
