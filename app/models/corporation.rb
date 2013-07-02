@@ -24,6 +24,10 @@ class Corporation
     return corporationID.text.to_i
   end
   
+  def ceo_id
+    return ceoID.text.to_i
+  end
+  
   def alliance_id
     return allianceID.text.to_i
   end
