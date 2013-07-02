@@ -1,8 +1,23 @@
 <h2>All known corporations</h2>
 
 Corporations:
-<ul>
+<table class="table">
+  <tr>
+    <th>Corporation Name</th>
+    <th>Alliance Name</th>
+    <th>CEO Name</th>
+    <th>Member Count</th>
+    <th></th>
+  </tr>
+
 <% @corporations.each do |corp| %>
-  <li><%= link_to "#{corp.name}", corporation_path(corp.id) %></li>
+  <tr>
+    <td><%= corp.name %></td>
+    <td><%= corp.alliance_name %></td>
+    <td><%= corp.ceo_name %></td>
+    <td><%= corp.member_count %></td>
+    <td><%= link_to 'Show', corporation_path(corp.id) %></td>
+  </tr>
 <% end %>
-</ul>
+</table>
+
