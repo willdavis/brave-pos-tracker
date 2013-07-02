@@ -11,4 +11,8 @@ class Scouting::ControlTower < ActiveRecord::Base
       return [] if structure_ids.nil?
       structure_ids.split(',').map { |s| s.to_i }
     end
+    
+    def corporation
+      @corporation ||= Corporation.new(corporation_id)
+    end
 end
