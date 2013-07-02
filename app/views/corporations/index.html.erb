@@ -1,0 +1,8 @@
+<h2>All known corporations</h2>
+
+Corporations:
+<ul>
+<% @corporations.each do |corp| %>
+  <li><%= corp.name %></li>
+<% end %>
+</ul>
