@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 BravePosTracker::Application.routes.draw do
+  resources :corporations, only: [:show, :index]
+
   namespace :scouting do
     resources :reports do
       get 'draft', :on => :member

@@ -1,0 +1,9 @@
+<h2><%= @corporation.name %> (<%= @corporation.alliance_name %>)</h2>
+
+Has towers at:
+<ul>
+<% @control_towers.each do |tower| %>
+  <li><%= tower.moon_name %></li>
+<% end %>
+</ul>
+<%= link_to 'Back', corporations_path, :class => "btn" %>
