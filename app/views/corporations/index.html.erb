@@ -3,6 +3,7 @@
 Corporations:
 <table class="table">
   <tr>
+    <th>Corporation Id</th>
     <th>Corporation Name</th>
     <th>Alliance Name</th>
     <th>CEO Name</th>
@@ -10,13 +11,14 @@ Corporations:
     <th></th>
   </tr>
 
-<% @corporations.each do |corp| %>
+<% @corporation_ids.each do |id| %>
   <tr>
-    <td><%= corp.name %></td>
-    <td><%= corp.alliance_name %></td>
-    <td><%= corp.ceo_name %></td>
-    <td><%= corp.member_count %></td>
-    <td><%= link_to 'Show', corporation_path(corp.id) %></td>
+    <td><%= id %></td>
+    <td>--</td>
+    <td>--</td>
+    <td>--</td>
+    <td>--</td>
+    <td><%= link_to 'Show', corporation_path(id) %></td>
   </tr>
 <% end %>
 </table>

@@ -16,8 +16,8 @@
 
 <% @scouting_control_towers.each do |control_tower| %>
   <tr>
-    <td><%= control_tower.corporation.name %></td>
-    <td><%= control_tower.corporation.alliance_name %></td>
+    <td><%= control_tower.corporation_id %></td>
+    <td>--</td>
     <td><%= control_tower.moon_name %></td>
     <td><%= control_tower.control_tower_type_name %></td>
     <td><%= control_tower.solar_system_id %></td>

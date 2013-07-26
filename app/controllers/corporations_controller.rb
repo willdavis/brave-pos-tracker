@@ -1,12 +1,7 @@
 class CorporationsController < ApplicationController
   # GET /corporations
   def index
-    @corporations = []
-    
-    corporation_ids = Scouting::ControlTower.uniq.pluck(:corporation_id)
-    corporation_ids.each do |id|
-      @corporations.push(Corporation.new(id))
-    end
+    @corporation_ids = Scouting::ControlTower.uniq.pluck(:corporation_id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +10,7 @@ class CorporationsController < ApplicationController
   
   # GET /corporations/1
   def show
-    @corporation = Corporation.new(params[:id])
+    @corporation_id = params[:id]
     @control_towers = Scouting::ControlTower.where(:corporation_id => params[:id])
 
     respond_to do |format|
