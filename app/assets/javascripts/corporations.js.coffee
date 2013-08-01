@@ -26,8 +26,24 @@ $ ->
             corp_obj.children('.corporation-ceo-name').text(ceo_name)
             corp_obj.children('.corporation-membercount').text(member_count)
           else
-            throw new Error('Nothing returned from getJSON.');
+            throw new Error('Nothing returned from getJSON.')
         )
+    )
+  )
+  
+  $('#corporation').ready(
+    corp_id = $('#corporation').children('#corporation-name').text()
+    eveapi_url = "https://api.eveonline.com/corp/CorporationSheet.xml.aspx?corporationID=#{corp_id}"
+    requestCrossDomain(eveapi_url, (data) ->
+      xml = (new DOMParser()).parseFromString(data.results, 'text/xml')
+      
+      if xml
+        name = $(xml).find('corporationName').text()
+        hq = $(xml).find('stationName').text()
+        $('#corporation').children('#corporation-name').text(name)
+        $('#corporation').children('#corporation-hq').append(hq)
+      else
+        throw new Error('Nothing returned from getJSON.')
     )
   )
   
@@ -42,7 +58,7 @@ requestCrossDomain = (site, callback) ->
   yql = 'http://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent('select * from xml where url="' + site + '"') + '&format=xml&callback=?'
   
   #Out put the yql string for debugging
-  console.log yql
+  #console.log yql
 
   # Request that YSQL string, and run a callback function.
   # Pass a defined function to prevent cache-busting.

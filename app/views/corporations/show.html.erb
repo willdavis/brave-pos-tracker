@@ -1,9 +1,14 @@
-<h2><%= @corporation_id %></h2>
+<div id="corporation">
+  <div id="corporation-name"><%= @corporation_id %></div>
+  <div id="corporation-hq"></div>
+  <div id="corporation-towers">
+    Known Towers:
+    <ul>
+    <% @control_towers.each do |tower| %>
+      <li><%= tower.moon_name %></li>
+    <% end %>
+    </ul>
+  </div>
+</div>
 
-Has towers at:
-<ul>
-<% @control_towers.each do |tower| %>
-  <li><%= tower.moon_name %></li>
-<% end %>
-</ul>
 <%= link_to 'Back', corporations_path, :class => "btn" %>
