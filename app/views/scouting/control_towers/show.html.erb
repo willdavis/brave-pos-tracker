@@ -1,20 +1,3 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Region:</b>
-  <%= @scouting_control_tower.region_id %>
-</p>
-
-<p>
-  <b>Constellation:</b>
-  <%= @scouting_control_tower.constellation_id %>
-</p>
-
-<p>
-  <b>Solar system:</b>
-  <%= @scouting_control_tower.solar_system_id %>
-</p>
-
 <p>
   <b>Moon:</b>
   <%= @scouting_control_tower.moon_name %>
@@ -32,7 +15,7 @@
 
 <p>
   <b>Owner Alliance:</b>
-  --
+  Loading...
 </p>
 
 <p>
@@ -40,5 +23,4 @@
   <%= @scouting_control_tower.structures %>
 </p>
 
-<%= link_to 'Edit', edit_scouting_control_tower_path(@scouting_control_tower) %> |
-<%= link_to 'Back', scouting_control_towers_path %>
+<%= link_to 'Back', scouting_control_towers_path %> | <%= link_to 'Edit', edit_scouting_control_tower_path(@scouting_control_tower) %> | <%= link_to 'Destroy', @scouting_control_tower, method: :delete, data: { confirm: 'Are you sure?' } %>
