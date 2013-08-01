@@ -33,18 +33,19 @@ $ ->
   
   $('#corporation').ready(
     corp_id = $('#corporation').children('#corporation-name').text()
-    eveapi_url = "https://api.eveonline.com/corp/CorporationSheet.xml.aspx?corporationID=#{corp_id}"
-    requestCrossDomain(eveapi_url, (data) ->
-      xml = (new DOMParser()).parseFromString(data.results, 'text/xml')
-      
-      if xml
-        name = $(xml).find('corporationName').text()
-        hq = $(xml).find('stationName').text()
-        $('#corporation').children('#corporation-name').text(name)
-        $('#corporation').children('#corporation-hq').append(hq)
-      else
-        throw new Error('Nothing returned from getJSON.')
-    )
+    if corp_id
+      eveapi_url = "https://api.eveonline.com/corp/CorporationSheet.xml.aspx?corporationID=#{corp_id}"
+      requestCrossDomain(eveapi_url, (data) ->
+        xml = (new DOMParser()).parseFromString(data.results, 'text/xml')
+        
+        if xml
+          name = $(xml).find('corporationName').text()
+          hq = $(xml).find('stationName').text()
+          $('#corporation').children('#corporation-name').text(name)
+          $('#corporation').children('#corporation-hq').append(hq)
+        else
+          throw new Error('Nothing returned from getJSON.')
+      )
   )
   
   
