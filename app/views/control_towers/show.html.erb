@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Corporation:</b>
+  <%= @control_tower.corporation_id %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @control_tower.type_id %>
+</p>
+
+<p>
+  <b>Moon:</b>
+  <%= @control_tower.moon_id %>
+</p>
+
+<p>
+  <b>Moon name:</b>
+  <%= @control_tower.moon_name %>
+</p>
+
+<p>
+  <b>Solar system:</b>
+  <%= @control_tower.solar_system_id %>
+</p>
+
+<p>
+  <b>Constellation:</b>
+  <%= @control_tower.constellation_id %>
+</p>
+
+<p>
+  <b>Region:</b>
+  <%= @control_tower.region_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_control_tower_path(@control_tower) %> |
+<%= link_to 'Back', control_towers_path %>
