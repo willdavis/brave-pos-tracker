@@ -1,29 +1,5 @@
-require 'sidekiq/web'
-
 BravePosTracker::Application.routes.draw do
-  resources :corporations, only: [:show, :index]
-
-  namespace :scouting do
-    resources :reports do
-      get 'draft', :on => :member
-      get 'publish', :on => :member
-    end
-    resources :control_towers
-  end
-
-  namespace :admin do
-    mount Sidekiq::Web, at: '/sidekiq'
-  
-    resources :roles
-    
-    get "dashboard/applications"
-    post "dashboard/accept_application"
-  end
-  
-  get "home/index"
-  get "home/waiting_room"
-
-  devise_for :users
+  get "dashboard/index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -74,10 +50,7 @@ BravePosTracker::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  authenticated :user do
-    root :to => 'home#index'
-  end
-  root :to => "home#waiting_room"
+  root :to => 'dashboard#index'
 
   # See how all your routes lay out with "rake routes"
 

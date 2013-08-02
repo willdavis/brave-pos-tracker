@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-BravePosTracker::Application.config.secret_token = '7cdd460de04fd66a4c966e73ed2aacbb409be24a7a11f1a7b6c70b05b6d71034564b38546abbabc9037bb074620e464e770b81ec75d56f8f926da998a731c5b6'
+BravePosTracker::Application.config.secret_token = '31bb6f41e95cb9e8dd4b8c769ee6779bdf5311fa346413c2bff025a797c655e48eec2fe11bb62924edc9067ebd56c5ecfc48eb81acf02ca6a8532789bdd2fc96'

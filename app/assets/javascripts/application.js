@@ -14,6 +14,3 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require application
-//= require corporations
-//= require scouting/control_towers
-//= require scouting/reports
