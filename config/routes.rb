@@ -1,4 +1,5 @@
 BravePosTracker::Application.routes.draw do
+  resources :corporations
   resources :control_towers
   
   get "dashboard/index"

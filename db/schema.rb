@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130802010234) do
+ActiveRecord::Schema.define(:version => 20130803035902) do
 
   create_table "control_towers", :force => true do |t|
     t.integer  "corporation_id"
@@ -26,5 +26,14 @@ ActiveRecord::Schema.define(:version => 20130802010234) do
   end
 
   add_index "control_towers", ["moon_id"], :name => "index_control_towers_on_moon_id", :unique => true
+
+  create_table "corporations", :force => true do |t|
+    t.string   "name"
+    t.integer  "eve_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "corporations", ["eve_id"], :name => "index_corporations_on_eve_id", :unique => true
 
 end
