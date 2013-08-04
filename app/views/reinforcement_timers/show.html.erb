@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+For:<br/>
+Moon: <%= @reinforcement_timer.control_tower.moon_name %>
+Corp: <%= @reinforcement_timer.control_tower.corporation.name %>
+
+<p>
+  <b>Expires at:</b>
+  <%= @reinforcement_timer.expires_at %>
+</p>
+
+Countdown: <%= @reinforcement_timer.countdown %>
+
+<br />
+<%= link_to 'Edit', edit_reinforcement_timer_path(@reinforcement_timer) %> |
+<%= link_to 'Back', reinforcement_timers_path %>

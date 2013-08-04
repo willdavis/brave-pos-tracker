@@ -1,4 +1,5 @@
 BravePosTracker::Application.routes.draw do
+  resources :reinforcement_timers
   resources :corporations
   resources :control_towers
   

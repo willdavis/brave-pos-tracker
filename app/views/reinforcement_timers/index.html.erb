@@ -1,0 +1,23 @@
+<h1>Listing reinforcement_timers</h1>
+
+<table>
+  <tr>
+    <th>Expires at</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @reinforcement_timers.each do |reinforcement_timer| %>
+  <tr>
+    <td><%= reinforcement_timer.expires_at %></td>
+    <td><%= link_to 'Show', reinforcement_timer %></td>
+    <td><%= link_to 'Edit', edit_reinforcement_timer_path(reinforcement_timer) %></td>
+    <td><%= link_to 'Destroy', reinforcement_timer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Reinforcement timer', new_reinforcement_timer_path %>

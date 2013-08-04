@@ -1,0 +1,21 @@
+<%= form_for(@reinforcement_timer) do |f| %>
+  <% if @reinforcement_timer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reinforcement_timer.errors.count, "error") %> prohibited this reinforcement_timer from being saved:</h2>
+
+      <ul>
+      <% @reinforcement_timer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :expires_at %><br />
+    <%= f.datetime_select :expires_at %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

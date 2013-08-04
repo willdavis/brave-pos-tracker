@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130803035902) do
+ActiveRecord::Schema.define(:version => 20130804041619) do
 
   create_table "control_towers", :force => true do |t|
     t.integer  "corporation_id"
@@ -35,5 +35,12 @@ ActiveRecord::Schema.define(:version => 20130803035902) do
   end
 
   add_index "corporations", ["eve_id"], :name => "index_corporations_on_eve_id", :unique => true
+
+  create_table "reinforcement_timers", :force => true do |t|
+    t.integer  "control_tower_id"
+    t.datetime "expires_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
 end
