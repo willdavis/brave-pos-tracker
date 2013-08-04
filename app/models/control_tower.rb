@@ -3,4 +3,6 @@ class ControlTower < ActiveRecord::Base
   
   belongs_to :corporation
   has_one :reinforcement_timer
+  
+  validates :corporation_id, :presence => true, :numericality => true
 end

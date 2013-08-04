@@ -1,31 +1,21 @@
-<h1>Listing control_towers</h1>
+<h1>Listing Control Towers</h1>
 
-<table>
+<table class="table table-striped table-hover table-condensed">
   <tr>
+    <th></th>
     <th>Corporation</th>
-    <th>Type</th>
+    <th>Tower Type</th>
     <th>Moon</th>
-    <th>Moon name</th>
     <th>Solar system</th>
-    <th>Constellation</th>
-    <th>Region</th>
-    <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @control_towers.each do |control_tower| %>
   <tr>
-    <td><%= control_tower.corporation_id %></td>
+    <td><%= link_to 'View', control_tower %></td>
+    <td><%= link_to "#{control_tower.corporation.name}", corporation_path(control_tower.corporation) %></td>
     <td><%= control_tower.type_id %></td>
-    <td><%= control_tower.moon_id %></td>
     <td><%= control_tower.moon_name %></td>
     <td><%= control_tower.solar_system_id %></td>
-    <td><%= control_tower.constellation_id %></td>
-    <td><%= control_tower.region_id %></td>
-    <td><%= link_to 'Show', control_tower %></td>
-    <td><%= link_to 'Edit', edit_control_tower_path(control_tower) %></td>
-    <td><%= link_to 'Destroy', control_tower, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>

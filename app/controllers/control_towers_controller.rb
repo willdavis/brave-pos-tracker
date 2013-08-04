@@ -24,6 +24,7 @@ class ControlTowersController < ApplicationController
   # GET /control_towers/new
   # GET /control_towers/new.json
   def new
+    @corporations = Corporation.all(:select => "id, name").to_json
     @control_tower = ControlTower.new
 
     respond_to do |format|

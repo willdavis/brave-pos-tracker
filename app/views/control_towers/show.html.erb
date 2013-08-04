@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Corporation:</b>
-  <%= @control_tower.corporation_id %>
+  <%= link_to "#{@control_tower.corporation.name}", corporation_path(@control_tower.corporation)  %>
 </p>
 
 <p>
