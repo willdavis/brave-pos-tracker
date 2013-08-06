@@ -1,13 +1,13 @@
 $ ->
   unless $('#control_tower_form').length == 0
-    names = []
+    corp_names = []
     corp_hash = {}
     for corp in corporations
-      names.push(corp["name"])
+      corp_names.push(corp["name"])
       corp_hash[corp["name"]] = corp["id"]
       
     $('#corporation_name').typeahead(
-      source: names
+      source: corp_names
         
       updater: (item) ->
         console.log "(brave-pos-tracker) selecting corporation: #{item} (id:#{corp_hash[item]})"
@@ -18,9 +18,33 @@ $ ->
       items: 5
     )
     
+    window.star_map = {}
+    
+    $('#solar_system_name').typeahead(
+      source: (query, process) ->
+        $.get(
+          'http://evedata.herokuapp.com/solar_systems'
+          { limit: 5, name: query }
+          (data) ->
+            star_names = []
+            
+            $.each(data, (key, val) ->
+              star_names.push(data[key].name)
+              star_map[data[key].name] = data[key].id
+            )
+            process(star_names)
+        )
+      
+      updater: (item) ->
+        $('#control_tower_solar_system_id').val(star_map[item])
+        return item
+              
+      minLength: 3
+      items: 5
+    )
+    
     $('#control_tower_type_id').ready(
       () ->
-        console.log "looking up control towers"
         $.get(
           'http://evedata.herokuapp.com/items'
           { group: "Control Tower", limit: 50 }
@@ -28,6 +52,36 @@ $ ->
             $.each(data, (key, val) ->
               $('#control_tower_type_id').append("<option value='#{data[key].id}'>#{data[key].name}</option>")
             )
+        )
+    )
+    
+    $('#solar_system_name').change(
+      () ->
+        $('#control_tower_moon_id').empty()
+        
+        location = $('#solar_system_name').val()
+        $.get(
+          'http://evedata.herokuapp.com/celestials'
+          { solar_system: location, group_id: 8, limit: 100 }
+          (data) ->
+            $('#control_tower_constellation_id').val(data[0].constellation.id)
+            $('#control_tower_region_id').val(data[0].region.id)
+            
+            $.each(data, (key, val) ->
+              $('#control_tower_moon_id').append("<option value='#{data[key].id}'>#{data[key].name}</option>")
+            )
+        )
+    )
+    
+    $('#control_tower_moon_id').change(
+      () ->
+        $('#control_tower_moon_name').empty()
+        
+        id = $('#control_tower_moon_id').val()
+        $.get(
+          "http://evedata.herokuapp.com/celestials/#{id}"
+          (data) ->
+            $('#control_tower_moon_name').val(data[0].name)
         )
     )
     

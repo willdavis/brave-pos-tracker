@@ -5,4 +5,5 @@ class ControlTower < ActiveRecord::Base
   has_one :reinforcement_timer
   
   validates :corporation_id, :presence => true, :numericality => true
+  validates :moon_id, :presence => true, :uniqueness => true
 end
