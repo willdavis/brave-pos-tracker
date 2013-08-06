@@ -1,25 +1,27 @@
-<h1>Listing Control Towers</h1>
+<div id="control_tower_index">
+  <h1>Listing Control Towers</h1>
 
-<table class="table table-striped table-hover table-condensed">
-  <tr>
-    <th></th>
-    <th>Corporation</th>
-    <th>Tower Type</th>
-    <th>Moon</th>
-    <th>Solar system</th>
-  </tr>
+  <table class="table table-striped table-hover table-condensed">
+    <tr>
+      <th></th>
+      <th>Corporation</th>
+      <th>Tower Type</th>
+      <th>Moon</th>
+      <th>Solar system</th>
+    </tr>
 
-<% @control_towers.each do |control_tower| %>
-  <tr>
-    <td><%= link_to 'View', control_tower %></td>
-    <td><%= link_to "#{control_tower.corporation.name}", corporation_path(control_tower.corporation) %></td>
-    <td><%= control_tower.type_id %></td>
-    <td><%= control_tower.moon_name %></td>
-    <td><%= control_tower.solar_system_id %></td>
-  </tr>
-<% end %>
-</table>
+  <% @control_towers.each do |control_tower| %>
+    <tr id="<%= control_tower.id %>" class="control_tower">
+      <td><%= link_to 'View', control_tower %></td>
+      <td><%= link_to "#{control_tower.corporation.name}", corporation_path(control_tower.corporation) %></td>
+      <td class="type_id"><%= control_tower.type_id %></td>
+      <td><%= control_tower.moon_name %></td>
+      <td><%= control_tower.solar_system_id %></td>
+    </tr>
+  <% end %>
+  </table>
 
-<br />
+  <br />
 
-<%= link_to 'New Control tower', new_control_tower_path %>
+  <%= link_to 'New Control tower', new_control_tower_path %>
+</div>

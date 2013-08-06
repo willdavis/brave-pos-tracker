@@ -1,38 +1,38 @@
-<p>
-  <b>Corporation:</b>
-  <%= link_to "#{@control_tower.corporation.name}", corporation_path(@control_tower.corporation)  %>
-</p>
+<div id="control_tower_show">
+  <div id="control_tower_icon"><%= @control_tower.type_id %></div>
+  
+  <p>
+    <b>Corporation:</b>
+    <%= link_to "#{@control_tower.corporation.name}", corporation_path(@control_tower.corporation)  %><br />
+    <b>Alliance:</b>----
+  </p>
 
-<p>
-  <b>Type:</b>
-  <%= @control_tower.type_id %>
-</p>
+  <p>
+    <b>Moon:</b>
+    <%= @control_tower.moon_id %>
+  </p>
 
-<p>
-  <b>Moon:</b>
-  <%= @control_tower.moon_id %>
-</p>
+  <p>
+    <b>Moon name:</b>
+    <%= @control_tower.moon_name %>
+  </p>
 
-<p>
-  <b>Moon name:</b>
-  <%= @control_tower.moon_name %>
-</p>
+  <p>
+    <b>Solar system:</b>
+    <%= @control_tower.solar_system_id %>
+  </p>
 
-<p>
-  <b>Solar system:</b>
-  <%= @control_tower.solar_system_id %>
-</p>
+  <p>
+    <b>Constellation:</b>
+    <%= @control_tower.constellation_id %>
+  </p>
 
-<p>
-  <b>Constellation:</b>
-  <%= @control_tower.constellation_id %>
-</p>
-
-<p>
-  <b>Region:</b>
-  <%= @control_tower.region_id %>
-</p>
+  <p>
+    <b>Region:</b>
+    <%= @control_tower.region_id %>
+  </p>
 
 
-<%= link_to 'Edit', edit_control_tower_path(@control_tower) %> |
-<%= link_to 'Back', control_towers_path %>
+  <%= link_to 'Edit', edit_control_tower_path(@control_tower) %> |
+  <%= link_to 'Back', control_towers_path %>
+</div>

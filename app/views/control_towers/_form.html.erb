@@ -18,9 +18,9 @@
       <%= f.label :corporation_id %><br />
       <%= text_field_tag 'corporation_name', nil, :autocomplete => :off, :placeholder => "corporation name", :data => { :provide =>"typeahead" } %>
     </div>
-    <div class="field">
+    <div id="" class="field">
       <%= f.label :type_id %><br />
-      <%= f.number_field :type_id %>
+      <select id="control_tower_type_id" name="control_tower[type_id]"></select>
     </div>
     <div class="field">
       <%= f.label :moon_id %><br />
