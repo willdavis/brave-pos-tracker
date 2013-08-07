@@ -87,11 +87,20 @@ $ ->
     
   unless $('#control_tower_show').length == 0
     type_id = $('#control_tower_icon').text()
+    solar_system_id = $('#solar_system_name').text()
     $.get(
       "http://evedata.herokuapp.com/items/#{type_id}"
       (data) ->
         $('#control_tower_icon').empty()
         $('#control_tower_icon').append("<img src='#{data[0].images.thumb}' />&nbsp;<b>#{data[0].name}</b>")
+    )
+    
+    $.get(
+      "http://evedata.herokuapp.com/celestials/#{solar_system_id}"
+      (data) ->
+        $('#solar_system_name').text(data[0].name)
+        $('#constellation_name').text(data[0].constellation.name)
+        $('#region_name').text(data[0].region.name)
     )
     
   unless $('#control_tower_index').length == 0
@@ -104,5 +113,16 @@ $ ->
           (data) ->
             obj.children('.type_id').empty()
             obj.children('.type_id').append("#{data[0].name}")
+        )
+    )
+    
+    $('.solar_system_name').each(
+      (index) ->
+        obj = $($('.solar_system_name').get(index))
+        id = obj.text()
+        $.get(
+          "http://evedata.herokuapp.com/celestials/#{id}"
+          (data) ->
+            obj.text(data[0].name)
         )
     )

@@ -16,7 +16,7 @@
       <td><%= link_to "#{control_tower.corporation.name}", corporation_path(control_tower.corporation) %></td>
       <td class="type_id"><%= control_tower.type_id %></td>
       <td><%= control_tower.moon_name %></td>
-      <td><%= control_tower.solar_system_id %></td>
+      <td class="solar_system_name"><%= control_tower.solar_system_id %></td>
     </tr>
   <% end %>
   </table>
