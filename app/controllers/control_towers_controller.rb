@@ -2,7 +2,7 @@ class ControlTowersController < ApplicationController
   # GET /control_towers
   # GET /control_towers.json
   def index
-    @control_towers = ControlTower.all
+    @control_towers = ControlTower.order(:moon_name).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
