@@ -2,7 +2,7 @@ class ReinforcementTimersController < ApplicationController
   # GET /reinforcement_timers
   # GET /reinforcement_timers.json
   def index
-    @reinforcement_timers = ReinforcementTimer.all
+    @reinforcement_timers = ReinforcementTimer.order(:expires_at).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

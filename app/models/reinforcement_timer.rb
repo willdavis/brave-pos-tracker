@@ -6,6 +6,6 @@ class ReinforcementTimer < ActiveRecord::Base
   
   def countdown
     time = expires_at - Time.now
-    Time.at(time).utc.strftime("%d:%I:%M:%S")
+    Time.at(time).utc.strftime("%d day(s) - %H:%M:%S")
   end
 end

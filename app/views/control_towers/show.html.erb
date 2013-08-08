@@ -16,6 +16,19 @@
     <b>Constellation: </b><span id="constellation_name"><%= @control_tower.constellation_id %></span><br />
     <b>Region: </b><span id="region_name"><%= @control_tower.region_id %></span>
   </div>
+  
+  <br />
+  
+  <div id="reinforcement_timer_info">
+    <b>Reinforcement Timer: </b>
+    <span id="reinforcement_timer">
+      <% if @control_tower.reinforcement_timer %>
+        <%= @control_tower.reinforcement_timer.countdown %>
+      <% else %>
+        <%= link_to "Add Timer", new_reinforcement_timer_path(:control_tower_id => @control_tower.id) %>
+      <% end %>
+    </span>
+  </div>
 
   <br />
   <%= link_to 'Back', control_towers_path %> | 

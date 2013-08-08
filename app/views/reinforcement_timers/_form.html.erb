@@ -15,6 +15,10 @@
     <%= f.label :expires_at %><br />
     <%= f.datetime_select :expires_at %>
   </div>
+  
+  <% @reinforcement_timer.control_tower_id = params[:control_tower_id] if params[:control_tower_id] %>
+  <%= f.hidden_field :control_tower_id, :value => @reinforcement_timer.control_tower_id %>
+  
   <div class="actions">
     <%= f.submit %>
   </div>
