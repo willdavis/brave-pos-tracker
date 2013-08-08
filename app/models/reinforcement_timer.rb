@@ -4,14 +4,6 @@ class ReinforcementTimer < ActiveRecord::Base
   belongs_to :control_tower
   validates :control_tower_id, :presence => true
   
-  def countdown
-    if !expired?
-      expires_at - DateTime.now
-    else
-      "Expired"
-    end
-  end
-  
   def expired?
     Time.now > expires_at
   end
