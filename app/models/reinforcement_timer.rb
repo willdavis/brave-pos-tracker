@@ -5,7 +5,14 @@ class ReinforcementTimer < ActiveRecord::Base
   validates :control_tower_id, :presence => true
   
   def countdown
-    time = expires_at - Time.now
-    Time.at(time).utc.strftime("%d day(s) - %H:%M:%S")
+    if !expired?
+      expires_at - DateTime.now
+    else
+      "Expired"
+    end
+  end
+  
+  def expired?
+    Time.now > expires_at
   end
 end

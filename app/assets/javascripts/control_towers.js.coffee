@@ -103,6 +103,9 @@ $ ->
         $('#region_name').text(data[0].region.name)
     )
     
+    utc_time = $('#reinforcement_timer_expires_at').text()
+    $('#reinforcement_timer_countdown').countdown({until: new Date(utc_time)})
+    
   unless $('#control_tower_index').length == 0
     $('.control_tower').each(
       (index) ->

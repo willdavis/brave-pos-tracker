@@ -21,13 +21,17 @@
   
   <div id="reinforcement_timer_info">
     <b>Reinforcement Timer: </b>
-    <span id="reinforcement_timer">
-      <% if @control_tower.reinforcement_timer %>
-        <%= @control_tower.reinforcement_timer.countdown %>
-      <% else %>
-        <%= link_to "Add Timer", new_reinforcement_timer_path(:control_tower_id => @control_tower.id) %>
+    <% if @control_tower.reinforcement_timer %>
+      <div>Expires at: <span id="reinforcement_timer_expires_at"><%= @control_tower.reinforcement_timer.expires_at %></span></div>
+      <div>Local Time: <%= @control_tower.reinforcement_timer.expires_at.localtime %></div>
+      <div id="reinforcement_timer_countdown"></div>
+      <% if @control_tower.reinforcement_timer.expired? %>
+        <br />
+        What happened to the tower?  <%= link_to "Repaired", @control_tower.reinforcement_timer, method: :delete %> : <%= link_to "Destroyed", @control_tower, method: :delete %>
       <% end %>
-    </span>
+    <% else %>
+      <%= link_to "Add Timer", new_reinforcement_timer_path(:control_tower_id => @control_tower.id) %>
+    <% end %>
   </div>
 
   <br />

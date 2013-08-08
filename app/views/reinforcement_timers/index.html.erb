@@ -2,14 +2,20 @@
 
 <table class="table table-striped table-hover table-condensed">
   <tr>
-    <th>Expires at</th>
     <th></th>
+    <th>Expires (UTC)</th>
+    <th>Expires (Local)</th>
+    <th>Corporation</th>
+    <th>Moon Name</th>
   </tr>
 
 <% @reinforcement_timers.each do |reinforcement_timer| %>
-  <tr>
-    <td><%= reinforcement_timer.expires_at %></td>
+  <tr class="<%= 'error' if reinforcement_timer.expired? %>">
     <td><%= link_to 'Show', reinforcement_timer %></td>
+    <td><%= reinforcement_timer.expires_at %></td>
+    <td><%= reinforcement_timer.expires_at.localtime %></td>
+    <td><%= reinforcement_timer.control_tower.corporation.name %></td>
+    <td><%= reinforcement_timer.control_tower.moon_name %></td>
   </tr>
 <% end %>
 </table>

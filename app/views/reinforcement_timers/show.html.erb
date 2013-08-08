@@ -1,16 +1,21 @@
-<b>Reinforcement Timer For:</b><br/>
-<b>Moon: </b><%= @reinforcement_timer.control_tower.moon_name %><br />
-<b>Corp: </b><%= @reinforcement_timer.control_tower.corporation.name %>
+<div id="reinforcement_timer_show">
+  <b>Reinforcement Timer For:</b><br/>
+  <b>Moon: </b><%= @reinforcement_timer.control_tower.moon_name %><br />
+  <b>Corp: </b><%= @reinforcement_timer.control_tower.corporation.name %>
 
-<p>
+  <br />
+  <br />
   <b>Expires at:</b>
-  <%= @reinforcement_timer.expires_at %>
-</p>
+  <div id="reinforcement_timer_expires_at"><%= @reinforcement_timer.expires_at %></div>
+  <div id="reinforcement_timer_countdown"></div>
+  <% if @reinforcement_timer.expired? %>
+  <br />
+  What happened?  <%= link_to "Repaired", @reinforcement_timer, method: :delete %> : <%= link_to "Destroyed", @reinforcement_timer.control_tower, method: :delete %>
+  <% end %>
 
-Countdown: <%= @reinforcement_timer.countdown %>
-
-<br />
-<br />
-<%= link_to 'Back', reinforcement_timers_path %> | 
-<%= link_to 'Edit', edit_reinforcement_timer_path(@reinforcement_timer) %> | 
-<%= link_to 'Destroy', @reinforcement_timer, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <br />
+  <br />
+  <%= link_to 'Back', reinforcement_timers_path %> | 
+  <%= link_to 'Edit', edit_reinforcement_timer_path(@reinforcement_timer) %> | 
+  <%= link_to 'Destroy', @reinforcement_timer, method: :delete, data: { confirm: 'Are you sure?' } %>
+</div>

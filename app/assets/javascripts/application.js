@@ -15,3 +15,5 @@
 //= require bootstrap
 //= require application
 //= require control_towers
+//= require reinforcement_timers
+//= require jquery.countdown
