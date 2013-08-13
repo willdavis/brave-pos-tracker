@@ -1,63 +1,6 @@
-<%= link_to "Brave Pos Tracker", root_path, :class => 'brand' %>
-<ul class="nav">  
-  <% if can? :manage, Scouting::Report %>
-    <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        Scouting
-        <b class="caret"></b>
-      </a>
-      <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
-        <li><%= link_to "Reports", scouting_reports_path %></li>
-        <li><%= link_to "Control Towers", scouting_control_towers_path %></li>
-        <li class="divider"></li>
-        <li class="disabled"><a href="#">Find CorpID by Character Name</a></li>
-      </ul>
-    </li>
-  <% end %>
-  
-  <% if can? :view, Scouting::ControlTower %>
-    <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        Command
-        <b class="caret"></b>
-      </a>
-      <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
-        <li><%= link_to 'Corporations', corporations_path %></li>
-      </ul>
-    </li>
-  <% end %>
-  
-  <% if can? :manage, User and can? :manage, Admin::Role %>
-    <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        Admin
-        <b class="caret"></b>
-      </a>
-      <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
-        <li><%= link_to('Pilot Applications', admin_dashboard_applications_path) %></li>
-        <li><%= link_to('Roles', admin_roles_path) %></li>
-        <li class="divider"></li>
-        <li><%= link_to "Sidekiq", "/admin/sidekiq" %></li>
-      </ul>
-    </li>
-  <% end %>
-
-  <% if user_signed_in? %>
-    <li>
-    <%= link_to('Logout', destroy_user_session_path, :method=>'delete') %>
-    </li>
-  <% else %>
-    <li>
-    <%= link_to('Login', new_user_session_path)  %>
-    </li>
-  <% end %>
-  <% if user_signed_in? %>
-    <li>
-    <%= link_to('Edit account', edit_user_registration_path) %>
-    </li>
-  <% else %>
-    <li>
-    <%= link_to('Sign up', new_user_registration_path)  %>
-    </li>
-  <% end %>
+<%= link_to "Brave POS Tracker", root_path, :class => 'brand' %>
+<ul class="nav">
+  <li><%= link_to 'Reinforcement Timers', reinforcement_timers_path %></li>
+  <li><%= link_to 'Control Towers', control_towers_path %></li>
+  <li><%= link_to 'Corporations', corporations_path %></li>
 </ul>

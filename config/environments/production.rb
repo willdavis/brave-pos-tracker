@@ -19,24 +19,6 @@ BravePosTracker::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
-  
-  
-  # ActionMailer Config
-  # Setup for production - deliveries
-  config.action_mailer.default_url_options = { :host => 'brave-pos-tracker.herokuapp.com' }
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.default :charset => "utf-8"
-  
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    :port =>           '587',
-    :address =>        'smtp.mandrillapp.com',
-    :user_name =>      ENV['MANDRILL_USERNAME'],
-    :password =>       ENV['MANDRILL_APIKEY'],
-    :domain =>         'heroku.com',
-    :authentication => :plain
-  }
-  config.action_mailer.raise_delivery_errors = true
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH

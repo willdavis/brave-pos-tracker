@@ -1,22 +1,21 @@
-<h2>All known corporations</h2>
+<h1>Listing Corporations</h1>
 
-Corporations:
-<div id="corporations">
-  <table class="table">
-    <tr>
-      <th>Corporation Name</th>
-      <th>Alliance Name</th>
-      <th>CEO Name</th>
-      <th>Member Count</th>
-    </tr>
+<table class="table table-striped table-hover table-condensed">
+  <tr>
+    <th>Name</th>
+    <th>Eve ID</th>
+  </tr>
 
-  <% @corporation_ids.each do |id| %>
-    <tr id="<%= id %>" class="corporation">
-      <td class="corporation-name"><%= link_to "#{id}", corporation_path(id) %></td>
-      <td class="corporation-alliance-name">Loading...</td>
-      <td class="corporation-ceo-name">Loading...</td>
-      <td class="corporation-membercount">Loading...</td>
-    </tr>
-  <% end %>
-  </table>
-</div>
+<% @corporations.each do |corporation| %>
+  <tr>
+    <td><%= link_to "#{corporation.name}", corporation %></td>
+    <td><%= corporation.eve_id %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate @corporations %>
+
+<br />
+
+<%= link_to 'New Corporation', new_corporation_path %>

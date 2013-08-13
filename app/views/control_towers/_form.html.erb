@@ -1,0 +1,47 @@
+<div id="control_tower_form">
+  <%= javascript_tag "var corporations = #{ @corporations };" %>
+
+  <%= form_for(@control_tower) do |f| %>
+    <% if @control_tower.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@control_tower.errors.count, "error") %> prohibited this control_tower from being saved:</h2>
+
+        <ul>
+        <% @control_tower.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :corporation_id %><br />
+      <%= text_field_tag 'corporation_name', nil, :autocomplete => :off, :placeholder => "corporation name", :data => { :provide =>"typeahead" } %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :solar_system_id %><br />
+      <%= text_field_tag 'solar_system_name', nil, :autocomplete => :off, :placeholder => "solar system name", :data => { :provide =>"typeahead" } %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :moon_id %><br />
+      <select id="control_tower_moon_id" name="control_tower[moon_id]"></select>
+    </div>
+    
+    <div class="field">
+      <%= f.label :type_id %><br />
+      <select id="control_tower_type_id" name="control_tower[type_id]"></select>
+    </div>
+    
+    <%= f.hidden_field :moon_name %>
+    <%= f.hidden_field :corporation_id %>
+    <%= f.hidden_field :region_id %>
+    <%= f.hidden_field :constellation_id %>
+    <%= f.hidden_field :solar_system_id %>
+    
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>

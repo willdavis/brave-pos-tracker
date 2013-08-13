@@ -1,0 +1,41 @@
+<div id="control_tower_show">
+  <div id="control_tower_icon"><%= @control_tower.type_id %></div>
+  
+  <p>
+    <b>Corporation:</b>
+    <%= link_to "#{@control_tower.corporation.name}", corporation_path(@control_tower.corporation)  %>
+  </p>
+
+  <p>
+    <b>Moon:</b>
+    <%= @control_tower.moon_name %>
+  </p>
+
+  <div id="solar_system_info">
+    <b>Solar System: </b><span id="solar_system_name"><%= @control_tower.solar_system_id %></span><br />
+    <b>Constellation: </b><span id="constellation_name"><%= @control_tower.constellation_id %></span><br />
+    <b>Region: </b><span id="region_name"><%= @control_tower.region_id %></span>
+  </div>
+  
+  <br />
+  
+  <div id="reinforcement_timer_info">
+    <b>Reinforcement Timer: </b>
+    <% if @control_tower.reinforcement_timer %>
+      <div>Expires at: <span id="reinforcement_timer_expires_at"><%= @control_tower.reinforcement_timer.expires_at %></span></div>
+      <div>Local Time: <%= @control_tower.reinforcement_timer.expires_at.localtime %></div>
+      <div id="reinforcement_timer_countdown"></div>
+      <% if @control_tower.reinforcement_timer.expired? %>
+        <br />
+        What happened to the tower?  <%= link_to "Repaired", @control_tower.reinforcement_timer, method: :delete %> : <%= link_to "Destroyed", @control_tower, method: :delete %>
+      <% end %>
+    <% else %>
+      <%= link_to "Add Timer", new_reinforcement_timer_path(:control_tower_id => @control_tower.id) %>
+    <% end %>
+  </div>
+
+  <br />
+  <%= link_to 'Back', control_towers_path %> | 
+  <%= link_to 'Edit', edit_control_tower_path(@control_tower) %> | 
+  <%= link_to 'Destroy', @control_tower, method: :delete, data: { confirm: 'Are you sure?' } %>
+</div>
