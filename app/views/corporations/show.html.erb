@@ -1,0 +1,27 @@
+<p>
+  <b>Name:</b>
+  <%= @corporation.name %>
+</p>
+
+<p>
+  <b>Eve ID:</b>
+  <%= @corporation.eve_id %>
+</p>
+
+<% if @corporation.control_towers %>
+  <table class="table table-striped table-hover table-condensed">
+    <tr>
+      <th>Control Towers</th>
+    </tr>
+    
+    <% for tower in @corporation.control_towers %>
+      <tr>
+        <td><%= link_to "#{tower.moon_name}", control_tower_path(tower) %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<%= link_to 'Back', corporations_path %> | 
+<%= link_to 'Edit', edit_corporation_path(@corporation) %> | 
+<%= link_to 'Destroy', @corporation, method: :delete, data: { confirm: 'Are you sure?' } %>

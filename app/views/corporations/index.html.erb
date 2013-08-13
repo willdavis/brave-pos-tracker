@@ -1,0 +1,21 @@
+<h1>Listing Corporations</h1>
+
+<table class="table table-striped table-hover table-condensed">
+  <tr>
+    <th>Name</th>
+    <th>Eve ID</th>
+  </tr>
+
+<% @corporations.each do |corporation| %>
+  <tr>
+    <td><%= link_to "#{corporation.name}", corporation %></td>
+    <td><%= corporation.eve_id %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate @corporations %>
+
+<br />
+
+<%= link_to 'New Corporation', new_corporation_path %>
