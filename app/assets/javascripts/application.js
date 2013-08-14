@@ -12,8 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.countdown
 //= require bootstrap
 //= require application
 //= require control_towers
 //= require reinforcement_timers
-//= require jquery.countdown
+//= require corporations
